@@ -2,11 +2,11 @@ import mongoose, { Schema } from 'mongoose'
 import mongooseKeywords from 'mongoose-keywords'
 
 const experiencesSchema = new Schema({
-  user: {
+  user: [{
     type: Schema.ObjectId,
     ref: 'User',
     required: true
-  },
+  }],
   name: {
     type: String,
     required: true,
@@ -51,7 +51,7 @@ experiencesSchema.methods = {
     const view = {
       // simple view
       id: this.id,
-      user: this.user.view(full),
+      user: this.user,
       name: this.name,
       description: this.description,
       pictures: this.pictures,

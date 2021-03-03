@@ -13,6 +13,7 @@ const userSchema = new Schema({
     match: /^\S+@\S+\.\S+$/,
     required: true,
     unique: true,
+    index: true,
     trim: true,
     lowercase: true
   },
@@ -24,8 +25,7 @@ const userSchema = new Schema({
   name: {
     type: String,
     index: true,
-    trim: true,
-    required: true
+    trim: true
   },
   phone: {
     type: String
@@ -74,7 +74,7 @@ userSchema.pre('save', function (next) {
 userSchema.methods = {
   view (full) {
     const view = {}
-    let fields = ['id', 'name', 'picture']
+    let fields = ['id', 'name', 'email', 'picture']
 
     if (full) {
       fields = [...fields, 'email', 'createdAt']

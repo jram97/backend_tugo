@@ -26,7 +26,7 @@ const { experiences, date, places, enabled } = schema.tree
  */
 router.post('/',
   token({ required: true }),
-  body({ experiences, date, places, enabled }),
+  body({ experiences, date, places }),
   create)
 
 /**

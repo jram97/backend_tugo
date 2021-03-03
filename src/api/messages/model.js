@@ -1,27 +1,24 @@
 import mongoose, { Schema } from 'mongoose'
+import mongooseKeywords from 'mongoose-keywords'
 
-const paymentsSchema = new Schema({
-  user: {
+const messagesSchema = new Schema({
+  user_from: {
     type: Schema.ObjectId,
     ref: 'User',
     required: true
   },
-  booking: {
+  user_by: {
     type: Schema.ObjectId,
-    ref: 'Booking',
+    ref: 'User',
     required: true
   },
-  card: {
-    type: Schema.ObjectId,
-    ref: 'Card',
-    required: true
-  },
-  mount: {
+  text: {
     type: String
   },
-  pay: {
+  read: {
     type: Boolean,
-    default: false
+    default: false,
+    index: true
   }
 }, {
   timestamps: true,
@@ -31,16 +28,15 @@ const paymentsSchema = new Schema({
   }
 })
 
-paymentsSchema.methods = {
+messagesSchema.methods = {
   view (full) {
     const view = {
       // simple view
       id: this.id,
-      user: this.user.view(full),
-      booking: this.booking.view(full),
-      card: this.card.view(full),
-      mount: this.mount,
-      pay: this.pay,
+      user_from: this.user_from.view(full),
+      user_by: this.user_by.view(full),
+      text: this.text,
+      read: this.read,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }
@@ -52,7 +48,9 @@ paymentsSchema.methods = {
   }
 }
 
-const model = mongoose.model('Payments', paymentsSchema)
+messagesSchema.plugin(mongooseKeywords, { paths: ['user_from', 'user_by', 'read'] })
+
+const model = mongoose.model('Messages', messagesSchema)
 
 export const schema = model.schema
 export default model

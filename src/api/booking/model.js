@@ -15,7 +15,8 @@ const bookingSchema = new Schema({
     type: String
   },
   places: {
-    type: String
+    type: String,
+    required: true
   },
   price: {
     type: String

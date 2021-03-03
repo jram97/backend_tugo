@@ -38,6 +38,11 @@
 	- [Delete images](#delete-images)
 	- [Retrieve images](#retrieve-images)
 	
+- [Messages](#messages)
+	- [Create messages](#create-messages)
+	- [Delete messages](#delete-messages)
+	- [Retrieve messages](#retrieve-messages)
+	
 - [Payments](#payments)
 	- [Create payments](#create-payments)
 	- [Delete payments](#delete-payments)
@@ -438,6 +443,51 @@
 | limit			| Number			| **optional** <p>Amount of returned items.</p>							|
 | sort			| String[]			| **optional** <p>Order of returned items.</p>							|
 | fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
+
+# Messages
+
+## Create messages
+
+
+
+	POST /messages
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>user access token.</p>							|
+| user_by			| 			|  <p>Messages's user_by.</p>							|
+| text			| 			|  <p>Messages's text.</p>							|
+
+## Delete messages
+
+
+
+	DELETE /messages/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>user access token.</p>							|
+
+## Retrieve messages
+
+
+
+	GET /messages
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>user access token.</p>							|
+| by			| ObjectId			| **optional** <p>user_by'Id.</p>							|
+| from			| ObjectId			| **optional** <p>user_from'Id.</p>							|
 
 # Payments
 

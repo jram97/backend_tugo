@@ -7,16 +7,16 @@ export const create = ({ user, bodymen: { body } }, res, next) =>
     .then(success(res, 201))
     .catch(next)
 
-export const index = ({ querymen: { query, select, cursor } }, res, next) =>
+export const index = ({ querymen: { query, select, cursor } }, res, next) => 
   Payments.count(query)
     .then(count => Payments.find(query, select, cursor)
-      .populate('user')
       .populate('card')
-      .populate('booking')
+      .populate({ path: 'booking', populate: { path: 'experiences', select: 'name description user' } })
       .then((payments) => ({
-        count,
-        rows: payments.map((payments) => payments.view())
-      }))
+          count,
+          rows: payments.map((payments) => payments)
+        })
+      )
     )
     .then(success(res))
     .catch(next)

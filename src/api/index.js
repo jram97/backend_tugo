@@ -8,6 +8,7 @@ import card from './cards'
 import review from './review'
 import images from './images'
 import payments from './payments'
+import messages from './messages'
 
 const router = new Router()
 
@@ -43,5 +44,6 @@ router.use('/cards', card)
 router.use('/reviews', review)
 router.use('/images', images)
 router.use('/payments', payments)
+router.use('/messages', messages)
 
 export default router
