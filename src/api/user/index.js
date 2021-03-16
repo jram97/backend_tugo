@@ -2,12 +2,12 @@ import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { password as passwordAuth, token } from '../../services/passport'
-import { index, showMe, show, create, update, updatePassword, destroy, sendcode, receivecode } from './controller'
+import { index, showMe, show, create, update, updatePassword, destroy, sendcode, receivecode, assingToken } from './controller'
 import { schema } from './model'
 export User, { schema } from './model'
 
 const router = new Router()
-const { email, password, name, picture, phone, role } = schema.tree
+const { email, password, name, picture, phone, role, firebaseTokens } = schema.tree
 
 /**
  * @api {get} /users Retrieve users
@@ -86,6 +86,23 @@ router.put('/:id',
   update)
 
 /**
+ * @api {put} /users/token/:id Add Firebase Token for User
+ * @apiName AgregarUserTokenFirebase
+ * @apiGroup User
+ * @apiPermission user
+ * @apiParam {String} access_token User access_token.
+ * @apiParam {[String]} firebaseTokens User's firebaseTokens.
+ * @apiSuccess {Object} user User's data.
+ * @apiError {Object} 400 Some parameters may contain invalid values.
+ * @apiError 401 Current user or admin access only.
+ * @apiError 404 User not found.
+ */
+ router.put('/token/:id',
+ token({ required: true }),
+ body({ firebaseTokens }),
+ assingToken)
+
+/**
  * @api {put} /users/:id/password Update password
  * @apiName UpdatePassword
  * @apiGroup User
@@ -116,7 +133,7 @@ router.delete('/:id',
   destroy)
 
 /**
- * @api {post} /send-code Send Code Verification
+ * @api {post} /users/send-code Send Code Verification
  * @apiName SendCode
  * @apiGroup User
  * @apiParam {String} phone The user's phone where the code verification will be sent.
@@ -128,7 +145,7 @@ router.post('/send-code',
   sendcode)
 
 /**
- * @api {post} /receive-code Receive Code Verification
+ * @api {post} /users/receive-code Receive Code Verification
  * @apiName ReceiveCode
  * @apiGroup User
  * @apiParam {String} phone The user's phone where the code verification was sent.

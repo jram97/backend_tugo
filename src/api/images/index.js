@@ -26,7 +26,7 @@ const { name } = schema.tree
  * @apiName CreateImages
  * @apiGroup Images
  * @apiPermission user
- * @apiParam {File} name Send files.
+ * @apiParam {[File]} name Send files.
  * @apiParam {ObjectId} experiencesId Experience's Object Id.
  * @apiSuccess {Object} images Images's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.

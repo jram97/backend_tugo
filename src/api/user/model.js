@@ -42,7 +42,10 @@ const userSchema = new Schema({
   picture: {
     type: String,
     trim: true
-  }
+  },
+  firebaseTokens: {
+    type: Array
+  },
 }, {
   timestamps: true
 })
@@ -74,7 +77,7 @@ userSchema.pre('save', function (next) {
 userSchema.methods = {
   view (full) {
     const view = {}
-    let fields = ['id', 'name', 'email', 'picture']
+    let fields = ['id', 'name', 'email', 'picture', 'firebaseTokens']
 
     if (full) {
       fields = [...fields, 'email', 'createdAt']

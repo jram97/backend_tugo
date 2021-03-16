@@ -1,9 +1,26 @@
 import { success, notFound, authorOrAdmin } from '../../services/response/'
 import { Messages } from '.'
+import { User } from '../user'
+import { sendNotification } from "../../services/firebase/send-message";
 
 export const create = ({ user, bodymen: { body } }, res, next) =>
   Messages.create({ ...body, user_from: user })
-    .then((messages) => messages.view(true))
+    .then(async (messages) => {
+
+      const from = await User.findById({_id: messages.user_from._id})
+      const by = await User.findById({_id: messages.user_by._id})
+
+      if (by.firebaseTokens.length > 0) {
+        const payload = {
+          notification: {
+            title: "New Message",
+            body: "You have a new message from: " + from.name
+          }
+        }
+        await sendNotification(by.firebaseTokens, payload);
+      }
+      return messages.view(true)
+    })
     .then(success(res, 201))
     .catch(next)
 

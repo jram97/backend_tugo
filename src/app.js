@@ -5,6 +5,7 @@ import express from './services/express'
 import express1 from 'express'
 import path from 'path'
 import api from './api'
+import './services/firebase/firebase'
 
 const app = express(apiRoot, api)
 const server = http.createServer(app)

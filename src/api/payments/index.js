@@ -7,7 +7,7 @@ import { schema } from './model'
 export Payments, { schema } from './model'
 
 const router = new Router()
-const { booking, card, mount } = schema.tree
+const { experiences, date, adult, children, card, mount, enabled, pay } = schema.tree
 
 /**
  * @api {post} /payments Create payments
@@ -15,9 +15,14 @@ const { booking, card, mount } = schema.tree
  * @apiGroup Payments
  * @apiPermission user
  * @apiParam {String} access_token user access token.
- * @apiParam {ObjectId} booking Payments's booking.
+ * @apiParam {ObjectId} experiences Payments's experiences.
+ * @apiParam {String} date Payments's date.
+ * @apiParam {String} adult Payments's adult.
+ * @apiParam {String} children Payments's children.
  * @apiParam {ObjectId} card Payments's card.
  * @apiParam {String} mount Payments's mount.
+ * @apiParam {Boolean} [enabled] Payments's enabled.
+ * @apiParam {Boolean} [pay] Payments's pay.
  * @apiSuccess {Object} payments Payments's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Payments not found.
@@ -25,7 +30,7 @@ const { booking, card, mount } = schema.tree
  */
 router.post('/',
   token({ required: true }),
-  body({ booking, card, mount }),
+  body({ experiences, date, adult, children, card, mount, enabled, pay }),
   create)
 
 /**
@@ -42,11 +47,7 @@ router.post('/',
  */
 router.get('/',
   token({ required: true }),
-  query({
-    u: { paths: ['booking.experiences.user'] },
-  },{
-    u: true
-  }),
+  query(),
   index)
 
 /**
@@ -70,9 +71,14 @@ router.get('/:id',
  * @apiGroup Payments
  * @apiPermission user
  * @apiParam {String} access_token user access token.
- * @apiParam {ObjectId} booking Payments's booking.
+ * @apiParam {ObjectId} experiences Payments's experiences.
+ * @apiParam {String} date Payments's date.
+ * @apiParam {String} adult Payments's adult.
+ * @apiParam {String} children Payments's children.
  * @apiParam {ObjectId} card Payments's card.
  * @apiParam {String} mount Payments's mount.
+ * @apiParam {Boolean} [enabled] Payments's enabled.
+ * @apiParam {Boolean} [pay] Payments's pay.
  * @apiSuccess {Object} payments Payments's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Payments not found.
@@ -80,7 +86,7 @@ router.get('/:id',
  */
 router.put('/:id',
   token({ required: true }),
-  body({ booking, card, mount }),
+  body({ experiences, date, adult, children, card, mount, enabled, pay }),
   update)
 
 /**

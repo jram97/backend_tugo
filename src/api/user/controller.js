@@ -1,6 +1,7 @@
 import { success, notFound } from '../../services/response/'
 import { User } from '.'
 import { sign } from '../../services/jwt'
+import { token } from '../../services/passport';
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
@@ -61,6 +62,42 @@ export const update = ({ bodymen: { body }, params, user }, res, next) =>
     .then((user) => user ? user.view(true) : null)
     .then(success(res))
     .catch(next)
+
+export const assingToken = ({ bodymen: { body }, params, user }, res, next) =>
+  User.findById(params.id === 'me' ? user.id : params.id)
+    .then(notFound(res))
+    .then((result) => {
+      if (!result) return null
+      const isAdmin = user.role === 'admin'
+      const isSelfUpdate = user.id === result.id
+      if (!isSelfUpdate && !isAdmin) {
+        res.status(401).json({
+          valid: false,
+          message: 'You can\'t change other user\'s data'
+        })
+        return null
+      }
+      return result
+    })
+    .then((user) => {
+      if (user) {
+        if (body.firebaseTokens) {
+          if (!user.firebaseTokens.includes(body.firebaseTokens)) {
+            return Object.assign(user, user.firebaseTokens.push(body.firebaseTokens)).save()
+          } else {
+            return res.json("Token already exist");
+          }
+        } else {
+          return null;
+        }
+      } else {
+        return null;
+      }
+    })
+    .then((user) => user ? user.view(true) : null)
+    .then(success(res))
+    .catch(next)
+
 
 export const updatePassword = ({ bodymen: { body }, params, user }, res, next) =>
   User.findById(params.id === 'me' ? user.id : params.id)

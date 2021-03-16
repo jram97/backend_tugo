@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
+import mongooseKeywords from 'mongoose-keywords'
 
 const paymentsSchema = new Schema({
   user: {
@@ -6,10 +7,25 @@ const paymentsSchema = new Schema({
     ref: 'User',
     required: true
   },
-  booking: {
+  experiences: {
     type: Schema.ObjectId,
-    ref: 'Booking',
+    ref: 'Experiences',
     required: true
+  },
+  date: {
+    type: String
+  },
+  adult: {
+    type: String,
+    default: "0"
+  },
+  children: {
+    type: String,
+    default: "0"
+  },
+  enabled: {
+    type: Boolean,
+    default: false
   },
   card: {
     type: Schema.ObjectId,
@@ -32,12 +48,15 @@ const paymentsSchema = new Schema({
 })
 
 paymentsSchema.methods = {
-  view (full) {
+  view(full) {
     const view = {
       // simple view
       id: this.id,
       user: this.user.view(full),
-      booking: this.booking.view(full),
+      experiences: this.experiences.view(full),
+      date: this.date,
+      adult: this.adult,
+      children: this.children,
       card: this.card.view(full),
       mount: this.mount,
       pay: this.pay,
@@ -51,6 +70,8 @@ paymentsSchema.methods = {
     } : view
   }
 }
+
+paymentsSchema.plugin(mongooseKeywords, { paths: ['user'] })
 
 const model = mongoose.model('Payments', paymentsSchema)
 

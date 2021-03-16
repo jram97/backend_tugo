@@ -8,13 +8,6 @@
 	- [Authenticate with Google](#authenticate-with-google)
 	- [Authenticate with Phone](#authenticate-with-phone)
 	
-- [Booking](#booking)
-	- [Create booking](#create-booking)
-	- [Delete booking](#delete-booking)
-	- [Retrieve booking](#retrieve-booking)
-	- [Retrieve bookings](#retrieve-bookings)
-	- [Update booking](#update-booking)
-	
 - [Card](#card)
 	- [Create Card](#create-card)
 	- [Delete Card](#delete-card)
@@ -42,6 +35,7 @@
 	- [Create messages](#create-messages)
 	- [Delete messages](#delete-messages)
 	- [Retrieve messages](#retrieve-messages)
+	- [Update payments](#update-payments)
 	
 - [Payments](#payments)
 	- [Create payments](#create-payments)
@@ -57,6 +51,7 @@
 	- [Update review](#update-review)
 	
 - [User](#user)
+	- [Add Firebase Token for User](#add-firebase-token-for-user)
 	- [Create user](#create-user)
 	- [Delete user](#delete-user)
 	- [Receive Code Verification](#receive-code-verification)
@@ -120,86 +115,6 @@
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
 | Authorization			| String			|  <p>Basic authorization with phone and password.</p>							|
-
-# Booking
-
-## Create booking
-
-
-
-	POST /bookings
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-| experiences			| ObjectId			|  <p>Booking's experiences.</p>							|
-| date			| String			|  <p>Booking's date.</p>							|
-| places			| String			|  <p>Booking's places.</p>							|
-| enabled			| Boolean			|  <p>Booking's enabled.</p>							|
-
-## Delete booking
-
-
-
-	DELETE /bookings/:id
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-
-## Retrieve booking
-
-
-
-	GET /bookings/:id
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-
-## Retrieve bookings
-
-
-
-	GET /bookings
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-| q			| String			| **optional** <p>Query to search.</p>							|
-| page			| Number			| **optional** <p>Page number.</p>							|
-| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
-| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
-| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
-
-## Update booking
-
-
-
-	PUT /bookings/:id
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-| experiences			| ObjectId			|  <p>Booking's experiences.</p>							|
-| date			| String			|  <p>Booking's date.</p>							|
-| places			| String			|  <p>Booking's places.</p>							|
-| enabled			| Boolean			|  <p>Booking's enabled.</p>							|
 
 # Card
 
@@ -302,7 +217,15 @@
 | name			| String			|  <p>Experiences's name.</p>							|
 | description			| String			|  <p>Experiences's description.</p>							|
 | direction			| String			|  <p>Experiences's direction.</p>							|
-| enabled			| Boolean			|  <p>Experiences's enabled.</p>							|
+| price			| String			|  <p>Experiences's price.</p>							|
+| lat			| String			|  <p>Experiences's latitud.</p>							|
+| long			| String			|  <p>Experiences's longitud.</p>							|
+| quotas			| String			|  <p>Experiences's quotas.</p>							|
+| start			| String			|  <p>Experiences's start.</p>							|
+| end			| String			|  <p>Experiences's end.</p>							|
+| duration			| String			|  <p>Experiences's duration.</p>							|
+| extra			| Array			|  <p>Experiences's extra.</p>							|
+| enabled			| Boolean			| **optional** <p>Experiences's enabled.</p>							|
 
 ## Delete experiences
 
@@ -349,7 +272,15 @@
 | name			| String			|  <p>Experiences's name.</p>							|
 | description			| String			|  <p>Experiences's description.</p>							|
 | direction			| String			|  <p>Experiences's direction.</p>							|
-| enabled			| Boolean			|  <p>Experiences's enabled.</p>							|
+| price			| String			|  <p>Experiences's price.</p>							|
+| lat			| String			|  <p>Experiences's latitud.</p>							|
+| long			| String			|  <p>Experiences's longitud.</p>							|
+| quotas			| String			|  <p>Experiences's quotas.</p>							|
+| start			| String			|  <p>Experiences's start.</p>							|
+| end			| String			|  <p>Experiences's end.</p>							|
+| duration			| String			|  <p>Experiences's duration.</p>							|
+| extra			| Array			|  <p>Experiences's extra.</p>							|
+| enabled			| Boolean			| **optional** <p>Experiences's enabled.</p>							|
 
 # Favorites
 
@@ -411,7 +342,7 @@
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| name			| File			|  <p>Send files.</p>							|
+| name			| [File]			|  <p>Send files.</p>							|
 | experiencesId			| ObjectId			|  <p>Experience's Object Id.</p>							|
 
 ## Delete images
@@ -488,6 +419,21 @@
 | access_token			| String			|  <p>user access token.</p>							|
 | by			| ObjectId			| **optional** <p>user_by'Id.</p>							|
 | from			| ObjectId			| **optional** <p>user_from'Id.</p>							|
+| read			| Boolean			| **optional** <p>read message.</p>							|
+
+## Update payments
+
+
+
+	PUT /messages/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>user access token.</p>							|
+| read			| Boolean			|  <p>Message's read.</p>							|
 
 # Payments
 
@@ -503,9 +449,14 @@
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
 | access_token			| String			|  <p>user access token.</p>							|
-| booking			| ObjectId			|  <p>Payments's booking.</p>							|
+| experiences			| ObjectId			|  <p>Payments's experiences.</p>							|
+| date			| String			|  <p>Payments's date.</p>							|
+| adult			| String			|  <p>Payments's adult.</p>							|
+| children			| String			|  <p>Payments's children.</p>							|
 | card			| ObjectId			|  <p>Payments's card.</p>							|
 | mount			| String			|  <p>Payments's mount.</p>							|
+| enabled			| Boolean			| **optional** <p>Payments's enabled.</p>							|
+| pay			| Boolean			| **optional** <p>Payments's pay.</p>							|
 
 ## Delete payments
 
@@ -550,9 +501,14 @@
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
 | access_token			| String			|  <p>user access token.</p>							|
-| booking			| ObjectId			|  <p>Payments's booking.</p>							|
+| experiences			| ObjectId			|  <p>Payments's experiences.</p>							|
+| date			| String			|  <p>Payments's date.</p>							|
+| adult			| String			|  <p>Payments's adult.</p>							|
+| children			| String			|  <p>Payments's children.</p>							|
 | card			| ObjectId			|  <p>Payments's card.</p>							|
 | mount			| String			|  <p>Payments's mount.</p>							|
+| enabled			| Boolean			| **optional** <p>Payments's enabled.</p>							|
+| pay			| Boolean			| **optional** <p>Payments's pay.</p>							|
 
 # Review
 
@@ -629,6 +585,20 @@
 
 # User
 
+## Add Firebase Token for User
+
+
+
+	PUT /users/token/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>User access_token.</p>							|
+| firebaseTokens			| [String]			|  <p>User's firebaseTokens.</p>							|
+
 ## Create user
 
 
@@ -664,7 +634,7 @@
 
 
 
-	POST /receive-code
+	POST /users/receive-code
 
 
 ### Parameters
@@ -716,7 +686,7 @@
 
 
 
-	POST /send-code
+	POST /users/send-code
 
 
 ### Parameters

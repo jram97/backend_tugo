@@ -3,7 +3,6 @@ import auth from './auth'
 import user from './user'
 import experiences from './experiences'
 import favorites from './favorites'
-import booking from './booking'
 import card from './cards'
 import review from './review'
 import images from './images'
@@ -39,7 +38,6 @@ router.use('/auth', auth)
 router.use('/users', user)
 router.use('/experiences', experiences)
 router.use('/favorites', favorites)
-router.use('/bookings', booking)
 router.use('/cards', card)
 router.use('/reviews', review)
 router.use('/images', images)
