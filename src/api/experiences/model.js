@@ -18,6 +18,30 @@ const experiencesSchema = new Schema({
   direction: {
     type: String
   },
+  lat: {
+    type: String
+  },
+  long: {
+    type: String
+  },
+  price: {
+    type: String
+  },
+  start: {
+    type: String
+  },
+  end: {
+    type: String
+  },
+  quotas: {
+    type: String
+  },
+  duration: {
+    type: String
+  },
+  extra: [{
+    type: String
+  }],
   pictures: [{
     type: String
   }],
@@ -47,13 +71,21 @@ const experiencesSchema = new Schema({
 })
 
 experiencesSchema.methods = {
-  view (full) {
+  view(full) {
     const view = {
       // simple view
       id: this.id,
       user: this.user,
       name: this.name,
       description: this.description,
+      price: this.price,
+      duration: this.duration,
+      quotas: this.quotas,
+      start: this.start,
+      end: this.end,
+      lat: this.lat,
+      long: this.long,
+      extra: this.extra,
       pictures: this.pictures,
       direction: this.direction,
       count_votes: this.count_votes,
@@ -71,7 +103,7 @@ experiencesSchema.methods = {
   }
 }
 
-experiencesSchema.plugin(mongooseKeywords, { paths: ['rating'] })
+experiencesSchema.plugin(mongooseKeywords, { paths: ['name', 'description', 'price'] })
 
 const model = mongoose.model('Experiences', experiencesSchema)
 

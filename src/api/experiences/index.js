@@ -8,7 +8,7 @@ export Experiences, { schema } from './model'
 
 
 const router = new Router()
-const { name, description, direction, enabled } = schema.tree
+const { name, description, direction, price, lat, long, quotas, start, end, duration, extra, enabled } = schema.tree
 
 /**
  * @api {post} /experiences Create experiences
@@ -19,16 +19,53 @@ const { name, description, direction, enabled } = schema.tree
  * @apiParam {String} name Experiences's name.
  * @apiParam {String} description Experiences's description.
  * @apiParam {String} direction Experiences's direction.
- * @apiParam {Boolean} enabled Experiences's enabled.
+ * @apiParam {String} price Experiences's price.
+ * @apiParam {String} lat Experiences's latitud.
+ * @apiParam {String} long Experiences's longitud.
+ * @apiParam {String} quotas Experiences's quotas.
+ * @apiParam {String} start Experiences's start.
+ * @apiParam {String} end Experiences's end.
+ * @apiParam {String} duration Experiences's duration.
+ * @apiParam {Array} extra Experiences's extra.
+ * @apiParam {Boolean} [enabled] Experiences's enabled.
  * @apiSuccess {Object} experiences Experiences's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Experiences not found.
  * @apiError 401 user access only.
  */
 router.post('/',
-  token({ required: true }),
-  body({ name, description, direction, enabled }),
+  token({ required: true, roles: ['user'] }),
+  body({ name, description, direction, price, lat, long, quotas, start, end, duration, extra, enabled }),
   create)
+
+/**
+ * @api {post} /experiences/admin Create experiences
+ * @apiName CreateExperiences
+ * @apiGroup Experiences
+ * @apiPermission admin
+ * @apiParam {String} access_token admin access token.
+ * @apiParam {String} name Experiences's name.
+ * @apiParam {String} description Experiences's description.
+ * @apiParam {String} direction Experiences's direction.
+ * @apiParam {String} price Experiences's price.
+ * @apiParam {String} lat Experiences's latitud.
+ * @apiParam {String} long Experiences's longitud.
+ * @apiParam {String} quotas Experiences's quotas.
+ * @apiParam {String} start Experiences's start.
+ * @apiParam {String} end Experiences's end.
+ * @apiParam {String} duration Experiences's duration.
+ * @apiParam {Array} extra Experiences's extra.
+ * @apiParam {Boolean} [enabled] Experiences's enabled.
+ * @apiSuccess {Object} experiences Experiences's data.
+ * @apiError {Object} 400 Some parameters may contain invalid values.
+ * @apiError 404 Experiences not found.
+ * @apiError 401 admin access only.
+ */
+router.post('/admin',
+  token({ required: true, roles: ['admin'] }),
+  body({ name, description, direction, price, lat, long, quotas, start, end, duration, extra, enabled }),
+  create)
+
 
 /**
  * @api {get} /experiences Retrieve experiences
@@ -42,12 +79,10 @@ router.post('/',
 router.get('/',
   query({
     user: { paths: ['user'] },
-    name: { paths: ['name'], operator: '$regex' },
     direction: { paths: ['direction'], operator: '$regex' },
     rating: { type: Number, paths: ['rating'] }
   }, {
     user: true,
-    name: true,
     rating: true,
     direction: true
   }),
@@ -73,7 +108,15 @@ router.get('/:id',
  * @apiParam {String} name Experiences's name.
  * @apiParam {String} description Experiences's description.
  * @apiParam {String} direction Experiences's direction.
- * @apiParam {Boolean} enabled Experiences's enabled.
+ * @apiParam {String} price Experiences's price.
+ * @apiParam {String} lat Experiences's latitud.
+ * @apiParam {String} long Experiences's longitud.
+ * @apiParam {String} quotas Experiences's quotas.
+ * @apiParam {String} start Experiences's start.
+ * @apiParam {String} end Experiences's end.
+ * @apiParam {String} duration Experiences's duration.
+ * @apiParam {Array} extra Experiences's extra.
+ * @apiParam {Boolean} [enabled] Experiences's enabled.
  * @apiSuccess {Object} experiences Experiences's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Experiences not found.
@@ -81,7 +124,7 @@ router.get('/:id',
  */
 router.put('/:id',
   token({ required: true }),
-  body({ name, description, enabled }),
+  body({ name, description, direction, price, lat, long, quotas, start, end, duration, extra, enabled }),
   update)
 
 /**
