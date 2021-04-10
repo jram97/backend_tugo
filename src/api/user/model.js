@@ -28,8 +28,8 @@ const userSchema = new Schema({
   },
   phone: {
     type: String,
-    unique: true,
-    index: true,
+    //unique: true,
+    //index: true,
     trim: true,
   },
   services: {
