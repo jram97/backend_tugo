@@ -20,6 +20,14 @@ export const show = ({ params }, res, next) =>
     .then(success(res))
     .catch(next)
 
+export const findByPhone = ({ query }, res, next) =>
+  User.findOne({phone: query.phone})
+    .then(notFound(res))
+    .then((user) => user ? "This phone is not available" : null)
+    .then(success(res))
+    .catch(next)
+
+
 export const showMe = ({ user }, res) =>
   res.json(user.view(true))
 

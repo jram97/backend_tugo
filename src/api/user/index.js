@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { password as passwordAuth, token } from '../../services/passport'
-import { index, showMe, show, create, update, updatePassword, destroy, sendcode, receivecode, assingToken } from './controller'
+import { index, showMe, show, create, update, updatePassword, destroy, sendcode, receivecode, assingToken, findByPhone } from './controller'
 import { schema } from './model'
 export User, { schema } from './model'
 
@@ -24,6 +24,16 @@ router.get('/',
   token({ required: true, roles: ['admin'] }),
   query(),
   index)
+
+/**
+ * @api {get} /users/phone-available?phone= Available phone
+ * @apiName AvailablePhone
+ * @apiGroup User
+ * @apiSuccess {Object} user Available phone.
+ * @apiError {Object} 400 Some parameters may contain invalid values.
+ */
+router.get('/phone-available',
+  findByPhone)
 
 /**
  * @api {get} /users/me Retrieve current user
@@ -52,9 +62,9 @@ router.get('/:id',
  * @api {post} /users Create user
  * @apiName CreateUser
  * @apiGroup User
- * @apiParam {String} email User's email.
+ * @apiParam {String} [email] User's email.
  * @apiParam {String{6..}} password User's password.
- * @apiParam {String} name User's name.
+ * @apiParam {String} [name] User's name.
  * @apiParam {String} phone User's phone.
  * @apiParam {String} [picture] User's picture.
  * @apiParam {String=user,admin} [role=user] User's role.

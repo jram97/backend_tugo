@@ -5,17 +5,16 @@ import mongoose, { Schema } from 'mongoose'
 import mongooseKeywords from 'mongoose-keywords'
 import { env } from '../../config'
 
-const roles = ['user', 'admin']
+const roles = ['user', 'admin', 'owner']
 
 const userSchema = new Schema({
   email: {
     type: String,
-    match: /^\S+@\S+\.\S+$/,
-    required: true,
-    unique: true,
-    index: true,
+    //match: /^\S+@\S+\.\S+$/,
+    required: false,
     trim: true,
-    lowercase: true
+    lowercase: true,
+    default: ""
   },
   password: {
     type: String,
@@ -28,7 +27,10 @@ const userSchema = new Schema({
     trim: true
   },
   phone: {
-    type: String
+    type: String,
+    unique: true,
+    index: true,
+    trim: true,
   },
   services: {
     facebook: String,
@@ -77,7 +79,7 @@ userSchema.pre('save', function (next) {
 userSchema.methods = {
   view (full) {
     const view = {}
-    let fields = ['id', 'name', 'email', 'picture', 'firebaseTokens']
+    let fields = ['id', 'name', 'email', 'picture', 'firebaseTokens', "role", "phone"]
 
     if (full) {
       fields = [...fields, 'email', 'createdAt']
@@ -112,7 +114,7 @@ userSchema.statics = {
   }
 }
 
-userSchema.plugin(mongooseKeywords, { paths: ['email', 'name'] })
+userSchema.plugin(mongooseKeywords, { paths: ['name'] })
 
 const model = mongoose.model('User', userSchema)
 

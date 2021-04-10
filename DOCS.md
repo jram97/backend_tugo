@@ -1,732 +1,1463 @@
+<a name="top"></a>
 # tugo v0.0.0
 
 
 
-- [Auth](#auth)
-	- [Authenticate](#authenticate)
-	- [Authenticate with Facebook](#authenticate-with-facebook)
-	- [Authenticate with Google](#authenticate-with-google)
-	- [Authenticate with Phone](#authenticate-with-phone)
-	
-- [Card](#card)
-	- [Create Card](#create-card)
-	- [Delete Card](#delete-card)
-	- [Retrieve Card](#retrieve-card)
-	- [Retrieve Cards](#retrieve-cards)
-	- [Update Card](#update-card)
-	
-- [Experiences](#experiences)
-	- [Create experiences](#create-experiences)
-	- [Delete experiences](#delete-experiences)
-	- [Retrieve experiences](#retrieve-experiences)
-	- [Update experiences](#update-experiences)
-	
-- [Favorites](#favorites)
-	- [Create favorites](#create-favorites)
-	- [Delete favorites](#delete-favorites)
-	- [Retrieve favorites](#retrieve-favorites)
-	
-- [Images](#images)
-	- [Create images](#create-images)
-	- [Delete images](#delete-images)
-	- [Retrieve images](#retrieve-images)
-	
-- [Messages](#messages)
-	- [Create messages](#create-messages)
-	- [Delete messages](#delete-messages)
-	- [Retrieve messages](#retrieve-messages)
-	- [Update payments](#update-payments)
-	
-- [Payments](#payments)
-	- [Create payments](#create-payments)
-	- [Delete payments](#delete-payments)
-	- [Retrieve payments](#retrieve-payments)
-	- [Update payments](#update-payments)
-	
-- [Review](#review)
-	- [Create review](#create-review)
-	- [Delete review](#delete-review)
-	- [Retrieve review](#retrieve-review)
-	- [Retrieve reviews](#retrieve-reviews)
-	- [Update review](#update-review)
-	
-- [User](#user)
-	- [Add Firebase Token for User](#add-firebase-token-for-user)
-	- [Create user](#create-user)
-	- [Delete user](#delete-user)
-	- [Receive Code Verification](#receive-code-verification)
-	- [Retrieve current user](#retrieve-current-user)
-	- [Retrieve user](#retrieve-user)
-	- [Retrieve users](#retrieve-users)
-	- [Send Code Verification](#send-code-verification)
-	- [Update password](#update-password)
-	- [Update user](#update-user)
-	
+ - [Auth](#Auth)
+   - [Authenticate](#Authenticate)
+   - [Authenticate with Facebook](#Authenticate-with-Facebook)
+   - [Authenticate with Google](#Authenticate-with-Google)
+   - [Authenticate with Phone](#Authenticate-with-Phone)
+ - [Card](#Card)
+   - [Create Card](#Create-Card)
+   - [Delete Card](#Delete-Card)
+   - [Retrieve Card](#Retrieve-Card)
+   - [Retrieve Cards](#Retrieve-Cards)
+   - [Update Card](#Update-Card)
+ - [Experiences](#Experiences)
+   - [Create experiences](#Create-experiences)
+   - [Delete experiences](#Delete-experiences)
+   - [Retrieve experiences](#Retrieve-experiences)
+   - [Update experiences](#Update-experiences)
+ - [Favorites](#Favorites)
+   - [Create favorites](#Create-favorites)
+   - [Delete favorites](#Delete-favorites)
+   - [Retrieve favorites](#Retrieve-favorites)
+ - [Images](#Images)
+   - [Create images](#Create-images)
+   - [Delete images](#Delete-images)
+   - [Retrieve images](#Retrieve-images)
+ - [Messages](#Messages)
+   - [Create messages](#Create-messages)
+   - [Delete messages](#Delete-messages)
+   - [Retrieve messages](#Retrieve-messages)
+   - [Update payments](#Update-payments)
+ - [Payments](#Payments)
+   - [Create payments](#Create-payments)
+   - [Delete payments](#Delete-payments)
+   - [Retrieve payments](#Retrieve-payments)
+   - [Update payments](#Update-payments)
+ - [Review](#Review)
+   - [Create review](#Create-review)
+   - [Delete review](#Delete-review)
+   - [Retrieve review](#Retrieve-review)
+   - [Retrieve reviews](#Retrieve-reviews)
+   - [Update review](#Update-review)
+ - [User](#User)
+   - [Add Firebase Token for User](#Add-Firebase-Token-for-User)
+   - [Available phone](#Available-phone)
+   - [Create user](#Create-user)
+   - [Delete user](#Delete-user)
+   - [Receive Code Verification](#Receive-Code-Verification)
+   - [Retrieve current user](#Retrieve-current-user)
+   - [Retrieve user](#Retrieve-user)
+   - [Retrieve users](#Retrieve-users)
+   - [Send Code Verification](#Send-Code-Verification)
+   - [Update password](#Update-password)
+   - [Update user](#Update-user)
+
+___
 
 
-# Auth
+# <a name='Auth'></a> Auth
 
-## Authenticate
+## <a name='Authenticate'></a> Authenticate
+[Back to top](#top)
 
+```
+POST /auth
+```
 
-
-	POST /auth
-
-### Headers
+### Headers - `Header`
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| Authorization			| String			|  <p>Basic authorization with email and password.</p>							|
+| Authorization | `String` | <p>Basic authorization with email and password.</p> |
 
-## Authenticate with Facebook
+### Success response
 
+#### Success response - `Success 201`
 
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| token | `String` | <p>User <code>access_token</code> to be passed to other requests.</p> |
+| user | `Object` | <p>Current user's data.</p> |
 
-	POST /auth/facebook
+## <a name='Authenticate-with-Facebook'></a> Authenticate with Facebook
+[Back to top](#top)
 
+```
+POST /auth/facebook
+```
 
-### Parameters
+### Parameters - `Parameter`
 
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>Facebook user accessToken.</p>							|
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>Facebook user accessToken.</p> |
 
-## Authenticate with Google
+### Success response
 
+#### Success response - `Success 201`
 
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| token | `String` | <p>User <code>access_token</code> to be passed to other requests.</p> |
+| user | `Object` | <p>Current user's data.</p> |
 
-	POST /auth/google
+### Error response
 
+#### Error response - `Error 4xx`
 
-### Parameters
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 401 |  | <p>Invalid credentials.</p> |
 
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>Google user accessToken.</p>							|
+## <a name='Authenticate-with-Google'></a> Authenticate with Google
+[Back to top](#top)
 
-## Authenticate with Phone
+```
+POST /auth/google
+```
 
+### Parameters - `Parameter`
 
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>Google user accessToken.</p> |
 
-	POST /auth/phone
+### Success response
 
-### Headers
+#### Success response - `Success 201`
 
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| Authorization			| String			|  <p>Basic authorization with phone and password.</p>							|
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| token | `String` | <p>User <code>access_token</code> to be passed to other requests.</p> |
+| user | `Object` | <p>Current user's data.</p> |
 
-# Card
+### Error response
 
-## Create Card
+#### Error response - `Error 4xx`
 
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 401 |  | <p>Invalid credentials.</p> |
 
+## <a name='Authenticate-with-Phone'></a> Authenticate with Phone
+[Back to top](#top)
 
-	POST /cards
+```
+POST /auth/phone
+```
 
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-| type			| String			|  <p>Card's type.</p>							|
-| card			| String			|  <p>Card's card.</p>							|
-| date			| String			|  <p>Card's date.</p>							|
-| cvv			| String			|  <p>Card's cvv.</p>							|
-| name			| String			|  <p>Card's name.</p>							|
-| ip			| String			|  <p>Card's ip.</p>							|
-
-## Delete Card
-
-
-
-	DELETE /cards/:id
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-
-## Retrieve Card
-
-
-
-	GET /cards/:id
-
-
-### Parameters
+### Headers - `Header`
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
+| Authorization | `String` | <p>Basic authorization with phone and password.</p> |
 
-## Retrieve Cards
+### Success response
 
+#### Success response - `Success 201`
 
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| token | `String` | <p>User <code>access_token</code> to be passed to other requests.</p> |
+| user | `Object` | <p>Current user's data.</p> |
 
-	GET /cards
+# <a name='Card'></a> Card
 
+## <a name='Create-Card'></a> Create Card
+[Back to top](#top)
 
-### Parameters
+```
+POST /cards
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+| type | `String` | <p>Card's type.</p> |
+| card | `String` | <p>Card's card.</p> |
+| date | `String` | <p>Card's date.</p> |
+| cvv | `String` | <p>Card's cvv.</p> |
+| name | `String` | <p>Card's name.</p> |
+| ip | `String` | <p>Card's ip.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| card | `Object` | <p>Card's data.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 404 |  | <p>Card not found.</p> |
+| 401 |  | <p>user access only.</p> |
+
+## <a name='Delete-Card'></a> Delete Card
+[Back to top](#top)
+
+```
+DELETE /cards/:id
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+
+### Success response
+
+#### Success response - `Success 204`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 204 |  | <p>No Content.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 404 |  | <p>Card not found.</p> |
+| 401 |  | <p>user access only.</p> |
+
+## <a name='Retrieve-Card'></a> Retrieve Card
+[Back to top](#top)
+
+```
+GET /cards/:id
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| card | `Object` | <p>Card's data.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 404 |  | <p>Card not found.</p> |
+| 401 |  | <p>user access only.</p> |
+
+## <a name='Retrieve-Cards'></a> Retrieve Cards
+[Back to top](#top)
+
+```
+GET /cards
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+| q | `String` | **optional** <p>Query to search.</p> |
+| page | `Number` | **optional** <p>Page number.</p>_Default value: 1_<br>_Size range: 1..30_<br> |
+| limit | `Number` | **optional** <p>Amount of returned items.</p>_Default value: 30_<br>_Size range: 1..100_<br> |
+| sort | `String[]` | **optional** <p>Order of returned items.</p>_Default value: -createdAt_<br> |
+| fields | `String[]` | **optional** <p>Fields to be returned.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| count | `Number` | <p>Total amount of Card.</p> |
+| rows | `Object[]` | <p>List of Card.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 401 |  | <p>user access only.</p> |
+
+## <a name='Update-Card'></a> Update Card
+[Back to top](#top)
+
+```
+PUT /cards/:id
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+| type | `String` | <p>Card's type.</p> |
+| card | `String` | <p>Card's card.</p> |
+| date | `String` | <p>Card's date.</p> |
+| cvv | `String` | <p>Card's cvv.</p> |
+| name | `String` | <p>Card's name.</p> |
+| ip | `String` | <p>Card's ip.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| card | `Object` | <p>Card's data.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 404 |  | <p>Card not found.</p> |
+| 401 |  | <p>user access only.</p> |
+
+# <a name='Experiences'></a> Experiences
+
+## <a name='Create-experiences'></a> Create experiences
+[Back to top](#top)
+
+```
+POST /experiences
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+| name | `String` | <p>Experiences's name.</p> |
+| description | `String` | <p>Experiences's description.</p> |
+| direction | `String` | <p>Experiences's direction.</p> |
+| price | `String` | <p>Experiences's price.</p> |
+| lat | `String` | <p>Experiences's latitud.</p> |
+| long | `String` | <p>Experiences's longitud.</p> |
+| quotas | `String` | <p>Experiences's quotas.</p> |
+| start | `String` | <p>Experiences's start.</p> |
+| end | `String` | <p>Experiences's end.</p> |
+| duration | `String` | <p>Experiences's duration.</p> |
+| extra | `Array` | <p>Experiences's extra.</p> |
+| enabled | `Boolean` | **optional** <p>Experiences's enabled.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| experiences | `Object` | <p>Experiences's data.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 404 |  | <p>Experiences not found.</p> |
+| 401 |  | <p>user access only.</p> |
+
+## <a name='Delete-experiences'></a> Delete experiences
+[Back to top](#top)
+
+```
+DELETE /experiences/:id
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+
+### Success response
+
+#### Success response - `Success 204`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 204 |  | <p>No Content.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 404 |  | <p>Experiences not found.</p> |
+| 401 |  | <p>user access only.</p> |
+
+## <a name='Retrieve-experiences'></a> Retrieve experiences
+[Back to top](#top)
+
+```
+GET /experiences
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| q | `String` | **optional** <p>Query to search.</p> |
+| page | `Number` | **optional** <p>Page number.</p>_Default value: 1_<br>_Size range: 1..30_<br> |
+| limit | `Number` | **optional** <p>Amount of returned items.</p>_Default value: 30_<br>_Size range: 1..100_<br> |
+| sort | `String[]` | **optional** <p>Order of returned items.</p>_Default value: -createdAt_<br> |
+| fields | `String[]` | **optional** <p>Fields to be returned.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| count | `Number` | <p>Total amount of experiences.</p> |
+| rows | `Object[]` | <p>List of experiences.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+
+## <a name='Update-experiences'></a> Update experiences
+[Back to top](#top)
+
+```
+PUT /experiences/:id
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+| name | `String` | <p>Experiences's name.</p> |
+| description | `String` | <p>Experiences's description.</p> |
+| direction | `String` | <p>Experiences's direction.</p> |
+| price | `String` | <p>Experiences's price.</p> |
+| lat | `String` | <p>Experiences's latitud.</p> |
+| long | `String` | <p>Experiences's longitud.</p> |
+| quotas | `String` | <p>Experiences's quotas.</p> |
+| start | `String` | <p>Experiences's start.</p> |
+| end | `String` | <p>Experiences's end.</p> |
+| duration | `String` | <p>Experiences's duration.</p> |
+| extra | `Array` | <p>Experiences's extra.</p> |
+| enabled | `Boolean` | **optional** <p>Experiences's enabled.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| experiences | `Object` | <p>Experiences's data.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 404 |  | <p>Experiences not found.</p> |
+| 401 |  | <p>user access only.</p> |
+
+# <a name='Favorites'></a> Favorites
+
+## <a name='Create-favorites'></a> Create favorites
+[Back to top](#top)
+
+```
+POST /favorites
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+| experiences | `ObjectId` | <p>Favorites's experiencesId.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| favorites | `Object` | <p>Favorites's data.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 404 |  | <p>Favorites not found.</p> |
+| 401 |  | <p>user access only.</p> |
+
+## <a name='Delete-favorites'></a> Delete favorites
+[Back to top](#top)
+
+```
+DELETE /favorites/:id
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+
+### Success response
+
+#### Success response - `Success 204`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 204 |  | <p>No Content.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 404 |  | <p>Favorites not found.</p> |
+| 401 |  | <p>user access only.</p> |
+
+## <a name='Retrieve-favorites'></a> Retrieve favorites
+[Back to top](#top)
+
+```
+GET /favorites
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+| q | `String` | **optional** <p>Query to search.</p> |
+| page | `Number` | **optional** <p>Page number.</p>_Default value: 1_<br>_Size range: 1..30_<br> |
+| limit | `Number` | **optional** <p>Amount of returned items.</p>_Default value: 30_<br>_Size range: 1..100_<br> |
+| sort | `String[]` | **optional** <p>Order of returned items.</p>_Default value: -createdAt_<br> |
+| fields | `String[]` | **optional** <p>Fields to be returned.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| count | `Number` | <p>Total amount of favorites.</p> |
+| rows | `Object[]` | <p>List of favorites.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 401 |  | <p>user access only.</p> |
+
+# <a name='Images'></a> Images
+
+## <a name='Create-images'></a> Create images
+[Back to top](#top)
+
+```
+POST /images
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| name | `[File]` | <p>Send files.</p> |
+| experiencesId | `ObjectId` | <p>Experience's Object Id.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| images | `Object` | <p>Images's data.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 404 |  | <p>Images not found.</p> |
+
+## <a name='Delete-images'></a> Delete images
+[Back to top](#top)
+
+```
+DELETE /images/:id/:experiencesId
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+
+### Success response
+
+#### Success response - `Success 204`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 204 |  | <p>No Content.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 404 |  | <p>Images not found.</p> |
+| 401 |  | <p>user access only.</p> |
+
+## <a name='Retrieve-images'></a> Retrieve images
+[Back to top](#top)
+
+```
+GET /images
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| q | `String` | **optional** <p>Query to search.</p> |
+| page | `Number` | **optional** <p>Page number.</p>_Default value: 1_<br>_Size range: 1..30_<br> |
+| limit | `Number` | **optional** <p>Amount of returned items.</p>_Default value: 30_<br>_Size range: 1..100_<br> |
+| sort | `String[]` | **optional** <p>Order of returned items.</p>_Default value: -createdAt_<br> |
+| fields | `String[]` | **optional** <p>Fields to be returned.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| count | `Number` | <p>Total amount of images.</p> |
+| rows | `Object[]` | <p>List of images.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+
+# <a name='Messages'></a> Messages
+
+## <a name='Create-messages'></a> Create messages
+[Back to top](#top)
+
+```
+POST /messages
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+| user_by |  | <p>Messages's user_by.</p> |
+| text |  | <p>Messages's text.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| messages | `Object` | <p>Messages's data.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 404 |  | <p>Messages not found.</p> |
+| 401 |  | <p>user access only.</p> |
+
+## <a name='Delete-messages'></a> Delete messages
+[Back to top](#top)
+
+```
+DELETE /messages/:id
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+
+### Success response
+
+#### Success response - `Success 204`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 204 |  | <p>No Content.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 404 |  | <p>Messages not found.</p> |
+| 401 |  | <p>user access only.</p> |
+
+## <a name='Retrieve-messages'></a> Retrieve messages
+[Back to top](#top)
+
+```
+GET /messages
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+| by | `ObjectId` | **optional** <p>user_by'Id.</p> |
+| from | `ObjectId` | **optional** <p>user_from'Id.</p> |
+| read | `Boolean` | **optional** <p>read message.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| count | `Number` | <p>Total amount of messages.</p> |
+| rows | `Object[]` | <p>List of messages.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 401 |  | <p>user access only.</p> |
+
+## <a name='Update-payments'></a> Update payments
+[Back to top](#top)
+
+```
+PUT /messages/:id
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+| read | `Boolean` | <p>Message's read.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| messages | `Object` | <p>Message's data.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 404 |  | <p>Message not found.</p> |
+| 401 |  | <p>user access only.</p> |
+
+# <a name='Payments'></a> Payments
+
+## <a name='Create-payments'></a> Create payments
+[Back to top](#top)
+
+```
+POST /payments
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+| experiences | `ObjectId` | <p>Payments's experiences.</p> |
+| date | `String` | <p>Payments's date.</p> |
+| adult | `String` | <p>Payments's adult.</p> |
+| children | `String` | <p>Payments's children.</p> |
+| card | `ObjectId` | <p>Payments's card.</p> |
+| mount | `String` | <p>Payments's mount.</p> |
+| enabled | `Boolean` | **optional** <p>Payments's enabled.</p> |
+| pay | `Boolean` | **optional** <p>Payments's pay.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| payments | `Object` | <p>Payments's data.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 404 |  | <p>Payments not found.</p> |
+| 401 |  | <p>user access only.</p> |
+
+## <a name='Delete-payments'></a> Delete payments
+[Back to top](#top)
+
+```
+DELETE /payments/:id
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+
+### Success response
+
+#### Success response - `Success 204`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 204 |  | <p>No Content.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 404 |  | <p>Payments not found.</p> |
+| 401 |  | <p>user access only.</p> |
+
+## <a name='Retrieve-payments'></a> Retrieve payments
+[Back to top](#top)
+
+```
+GET /payments
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+| q | `String` | **optional** <p>Query to search.</p> |
+| page | `Number` | **optional** <p>Page number.</p>_Default value: 1_<br>_Size range: 1..30_<br> |
+| limit | `Number` | **optional** <p>Amount of returned items.</p>_Default value: 30_<br>_Size range: 1..100_<br> |
+| sort | `String[]` | **optional** <p>Order of returned items.</p>_Default value: -createdAt_<br> |
+| fields | `String[]` | **optional** <p>Fields to be returned.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| count | `Number` | <p>Total amount of payments.</p> |
+| rows | `Object[]` | <p>List of payments.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 401 |  | <p>user access only.</p> |
+
+## <a name='Update-payments'></a> Update payments
+[Back to top](#top)
+
+```
+PUT /payments/:id
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+| experiences | `ObjectId` | <p>Payments's experiences.</p> |
+| date | `String` | <p>Payments's date.</p> |
+| adult | `String` | <p>Payments's adult.</p> |
+| children | `String` | <p>Payments's children.</p> |
+| card | `ObjectId` | <p>Payments's card.</p> |
+| mount | `String` | <p>Payments's mount.</p> |
+| enabled | `Boolean` | **optional** <p>Payments's enabled.</p> |
+| pay | `Boolean` | **optional** <p>Payments's pay.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| payments | `Object` | <p>Payments's data.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 404 |  | <p>Payments not found.</p> |
+| 401 |  | <p>user access only.</p> |
+
+# <a name='Review'></a> Review
+
+## <a name='Create-review'></a> Create review
+[Back to top](#top)
+
+```
+POST /reviews
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+| experiences | `ObjectId` | <p>Review's experiencesId.</p> |
+| title | `String` | <p>Review's title.</p> |
+| description | `String` | <p>Review's description.</p> |
+| star | `String` | <p>Review's star.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| review | `Object` | <p>Review's data.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 404 |  | <p>Review not found.</p> |
+| 401 |  | <p>user access only.</p> |
+
+## <a name='Delete-review'></a> Delete review
+[Back to top](#top)
+
+```
+DELETE /reviews/:id
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+
+### Success response
+
+#### Success response - `Success 204`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 204 |  | <p>No Content.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 404 |  | <p>Review not found.</p> |
+| 401 |  | <p>user access only.</p> |
+
+## <a name='Retrieve-review'></a> Retrieve review
+[Back to top](#top)
+
+```
+GET /reviews/:id
+```
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| review | `Object` | <p>Review's data.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 404 |  | <p>Review not found.</p> |
+
+## <a name='Retrieve-reviews'></a> Retrieve reviews
+[Back to top](#top)
+
+```
+GET /reviews
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| q | `String` | **optional** <p>Query to search.</p> |
+| page | `Number` | **optional** <p>Page number.</p>_Default value: 1_<br>_Size range: 1..30_<br> |
+| limit | `Number` | **optional** <p>Amount of returned items.</p>_Default value: 30_<br>_Size range: 1..100_<br> |
+| sort | `String[]` | **optional** <p>Order of returned items.</p>_Default value: -createdAt_<br> |
+| fields | `String[]` | **optional** <p>Fields to be returned.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| count | `Number` | <p>Total amount of reviews.</p> |
+| rows | `Object[]` | <p>List of reviews.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+
+## <a name='Update-review'></a> Update review
+[Back to top](#top)
+
+```
+PUT /reviews/:id
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+| experiences | `ObjectId` | <p>Review's experiencesId.</p> |
+| title | `String` | <p>Review's title.</p> |
+| description | `String` | <p>Review's description.</p> |
+| star | `String` | <p>Review's star.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| review | `Object` | <p>Review's data.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 404 |  | <p>Review not found.</p> |
+| 401 |  | <p>user access only.</p> |
+
+# <a name='User'></a> User
+
+## <a name='Add-Firebase-Token-for-User'></a> Add Firebase Token for User
+[Back to top](#top)
+
+```
+PUT /users/token/:id
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>User access_token.</p> |
+| firebaseTokens | `[String]` | <p>User's firebaseTokens.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| user | `Object` | <p>User's data.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 401 |  | <p>Current user or admin access only.</p> |
+| 404 |  | <p>User not found.</p> |
+
+## <a name='Available-phone'></a> Available phone
+[Back to top](#top)
+
+```
+GET /users/phone-available?phone=
+```
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| user | `Object` | <p>Available phone.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+
+## <a name='Create-user'></a> Create user
+[Back to top](#top)
+
+```
+POST /users
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| email | `String` | **optional** <p>User's email.</p> |
+| password | `String` | <p>User's password.</p>_Size range: 6.._<br> |
+| name | `String` | **optional** <p>User's name.</p> |
+| phone | `String` | <p>User's phone.</p> |
+| picture | `String` | **optional** <p>User's picture.</p> |
+| role | `String` | **optional** <p>User's role.</p>_Default value: user_<br>_Allowed values: user,admin_ |
+
+### Success response
+
+#### Success response - `Sucess 201`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| user | `Object` | <p>User's data.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 409 |  | <p>Email already registered.</p> |
+
+## <a name='Delete-user'></a> Delete user
+[Back to top](#top)
+
+```
+DELETE /users/:id
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>User access_token.</p> |
+
+### Success response
+
+#### Success response - `Success 204`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 204 |  | <p>No Content.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 401 |  | <p>Admin access only.</p> |
+| 404 |  | <p>User not found.</p> |
+
+## <a name='Receive-Code-Verification'></a> Receive Code Verification
+[Back to top](#top)
+
+```
+POST /users/receive-code
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| phone | `String` | <p>The user's phone where the code verification was sent.</p> |
+| code | `String` | <p>The code that was sent.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| data | `Object[]` | <p>Receive from Twilio.</p> |
+
+### Error response
+
+#### Error response - `Sucess 201`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 401 |  | <p>Credentials error from Twilio.</p> |
+
+## <a name='Retrieve-current-user'></a> Retrieve current user
+[Back to top](#top)
+
+```
+GET /users/me
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>User access_token.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| user | `Object` | <p>User's data.</p> |
+
+## <a name='Retrieve-user'></a> Retrieve user
+[Back to top](#top)
+
+```
+GET /users/:id
+```
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| user | `Object` | <p>User's data.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 404 |  | <p>User not found.</p> |
+
+## <a name='Retrieve-users'></a> Retrieve users
+[Back to top](#top)
+
+```
+GET /users
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>User access_token.</p> |
+| q | `String` | **optional** <p>Query to search.</p> |
+| page | `Number` | **optional** <p>Page number.</p>_Default value: 1_<br>_Size range: 1..30_<br> |
+| limit | `Number` | **optional** <p>Amount of returned items.</p>_Default value: 30_<br>_Size range: 1..100_<br> |
+| sort | `String[]` | **optional** <p>Order of returned items.</p>_Default value: -createdAt_<br> |
+| fields | `String[]` | **optional** <p>Fields to be returned.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| users | `Object[]` | <p>List of users.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 401 |  | <p>Admin access only.</p> |
+
+## <a name='Send-Code-Verification'></a> Send Code Verification
+[Back to top](#top)
+
+```
+POST /users/send-code
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| phone | `String` | <p>The user's phone where the code verification will be sent.</p> |
+
+### Success response
+
+#### Success response - `Sucess 201`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| data | `Object[]` | <p>Receive from Twilio.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 401 |  | <p>Credentials error from Twilio.</p> |
+
+## <a name='Update-password'></a> Update password
+[Back to top](#top)
+
+```
+PUT /users/:id/password
+```
+
+### Headers - `Header`
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-| q			| String			| **optional** <p>Query to search.</p>							|
-| page			| Number			| **optional** <p>Page number.</p>							|
-| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
-| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
-| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
+| Authorization | `String` | <p>Basic authorization with email and password.</p> |
 
-## Update Card
+### Parameters - `Parameter`
 
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| password | `String` | <p>User's new password.</p>_Size range: 6.._<br> |
 
+### Success response
 
-	PUT /cards/:id
+#### Success response - `Success 201`
 
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| user | `Object` | <p>User's data.</p> |
 
-### Parameters
+### Error response
 
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-| type			| String			|  <p>Card's type.</p>							|
-| card			| String			|  <p>Card's card.</p>							|
-| date			| String			|  <p>Card's date.</p>							|
-| cvv			| String			|  <p>Card's cvv.</p>							|
-| name			| String			|  <p>Card's name.</p>							|
-| ip			| String			|  <p>Card's ip.</p>							|
+#### Error response - `Error 4xx`
 
-# Experiences
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 401 |  | <p>Current user access only.</p> |
+| 404 |  | <p>User not found.</p> |
 
-## Create experiences
+## <a name='Update-user'></a> Update user
+[Back to top](#top)
 
+```
+PUT /users/:id
+```
 
+### Parameters - `Parameter`
 
-	POST /experiences
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>User access_token.</p> |
+| name | `String` | <p>User's name.</p> |
+| phone | `String` | <p>User's phone.</p> |
+| picture | `String` | **optional** <p>User's picture.</p> |
 
+### Success response
 
-### Parameters
+#### Success response - `Success 200`
 
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-| name			| String			|  <p>Experiences's name.</p>							|
-| description			| String			|  <p>Experiences's description.</p>							|
-| direction			| String			|  <p>Experiences's direction.</p>							|
-| price			| String			|  <p>Experiences's price.</p>							|
-| lat			| String			|  <p>Experiences's latitud.</p>							|
-| long			| String			|  <p>Experiences's longitud.</p>							|
-| quotas			| String			|  <p>Experiences's quotas.</p>							|
-| start			| String			|  <p>Experiences's start.</p>							|
-| end			| String			|  <p>Experiences's end.</p>							|
-| duration			| String			|  <p>Experiences's duration.</p>							|
-| extra			| Array			|  <p>Experiences's extra.</p>							|
-| enabled			| Boolean			| **optional** <p>Experiences's enabled.</p>							|
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| user | `Object` | <p>User's data.</p> |
 
-## Delete experiences
+### Error response
 
+#### Error response - `Error 4xx`
 
-
-	DELETE /experiences/:id
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-
-## Retrieve experiences
-
-
-
-	GET /experiences
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| q			| String			| **optional** <p>Query to search.</p>							|
-| page			| Number			| **optional** <p>Page number.</p>							|
-| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
-| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
-| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
-
-## Update experiences
-
-
-
-	PUT /experiences/:id
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-| name			| String			|  <p>Experiences's name.</p>							|
-| description			| String			|  <p>Experiences's description.</p>							|
-| direction			| String			|  <p>Experiences's direction.</p>							|
-| price			| String			|  <p>Experiences's price.</p>							|
-| lat			| String			|  <p>Experiences's latitud.</p>							|
-| long			| String			|  <p>Experiences's longitud.</p>							|
-| quotas			| String			|  <p>Experiences's quotas.</p>							|
-| start			| String			|  <p>Experiences's start.</p>							|
-| end			| String			|  <p>Experiences's end.</p>							|
-| duration			| String			|  <p>Experiences's duration.</p>							|
-| extra			| Array			|  <p>Experiences's extra.</p>							|
-| enabled			| Boolean			| **optional** <p>Experiences's enabled.</p>							|
-
-# Favorites
-
-## Create favorites
-
-
-
-	POST /favorites
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-| experiences			| ObjectId			|  <p>Favorites's experiencesId.</p>							|
-
-## Delete favorites
-
-
-
-	DELETE /favorites/:id
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-
-## Retrieve favorites
-
-
-
-	GET /favorites
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-| q			| String			| **optional** <p>Query to search.</p>							|
-| page			| Number			| **optional** <p>Page number.</p>							|
-| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
-| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
-| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
-
-# Images
-
-## Create images
-
-
-
-	POST /images
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| name			| [File]			|  <p>Send files.</p>							|
-| experiencesId			| ObjectId			|  <p>Experience's Object Id.</p>							|
-
-## Delete images
-
-
-
-	DELETE /images/:id/:experiencesId
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-
-## Retrieve images
-
-
-
-	GET /images
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| q			| String			| **optional** <p>Query to search.</p>							|
-| page			| Number			| **optional** <p>Page number.</p>							|
-| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
-| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
-| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
-
-# Messages
-
-## Create messages
-
-
-
-	POST /messages
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-| user_by			| 			|  <p>Messages's user_by.</p>							|
-| text			| 			|  <p>Messages's text.</p>							|
-
-## Delete messages
-
-
-
-	DELETE /messages/:id
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-
-## Retrieve messages
-
-
-
-	GET /messages
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-| by			| ObjectId			| **optional** <p>user_by'Id.</p>							|
-| from			| ObjectId			| **optional** <p>user_from'Id.</p>							|
-| read			| Boolean			| **optional** <p>read message.</p>							|
-
-## Update payments
-
-
-
-	PUT /messages/:id
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-| read			| Boolean			|  <p>Message's read.</p>							|
-
-# Payments
-
-## Create payments
-
-
-
-	POST /payments
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-| experiences			| ObjectId			|  <p>Payments's experiences.</p>							|
-| date			| String			|  <p>Payments's date.</p>							|
-| adult			| String			|  <p>Payments's adult.</p>							|
-| children			| String			|  <p>Payments's children.</p>							|
-| card			| ObjectId			|  <p>Payments's card.</p>							|
-| mount			| String			|  <p>Payments's mount.</p>							|
-| enabled			| Boolean			| **optional** <p>Payments's enabled.</p>							|
-| pay			| Boolean			| **optional** <p>Payments's pay.</p>							|
-
-## Delete payments
-
-
-
-	DELETE /payments/:id
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-
-## Retrieve payments
-
-
-
-	GET /payments
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-| q			| String			| **optional** <p>Query to search.</p>							|
-| page			| Number			| **optional** <p>Page number.</p>							|
-| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
-| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
-| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
-
-## Update payments
-
-
-
-	PUT /payments/:id
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-| experiences			| ObjectId			|  <p>Payments's experiences.</p>							|
-| date			| String			|  <p>Payments's date.</p>							|
-| adult			| String			|  <p>Payments's adult.</p>							|
-| children			| String			|  <p>Payments's children.</p>							|
-| card			| ObjectId			|  <p>Payments's card.</p>							|
-| mount			| String			|  <p>Payments's mount.</p>							|
-| enabled			| Boolean			| **optional** <p>Payments's enabled.</p>							|
-| pay			| Boolean			| **optional** <p>Payments's pay.</p>							|
-
-# Review
-
-## Create review
-
-
-
-	POST /reviews
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-| experiences			| ObjectId			|  <p>Review's experiencesId.</p>							|
-| title			| String			|  <p>Review's title.</p>							|
-| description			| String			|  <p>Review's description.</p>							|
-| star			| String			|  <p>Review's star.</p>							|
-
-## Delete review
-
-
-
-	DELETE /reviews/:id
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-
-## Retrieve review
-
-
-
-	GET /reviews/:id
-
-
-## Retrieve reviews
-
-
-
-	GET /reviews
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| q			| String			| **optional** <p>Query to search.</p>							|
-| page			| Number			| **optional** <p>Page number.</p>							|
-| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
-| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
-| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
-
-## Update review
-
-
-
-	PUT /reviews/:id
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-| experiences			| ObjectId			|  <p>Review's experiencesId.</p>							|
-| title			| String			|  <p>Review's title.</p>							|
-| description			| String			|  <p>Review's description.</p>							|
-| star			| String			|  <p>Review's star.</p>							|
-
-# User
-
-## Add Firebase Token for User
-
-
-
-	PUT /users/token/:id
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>User access_token.</p>							|
-| firebaseTokens			| [String]			|  <p>User's firebaseTokens.</p>							|
-
-## Create user
-
-
-
-	POST /users
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| email			| String			|  <p>User's email.</p>							|
-| password			| String			|  <p>User's password.</p>							|
-| name			| String			|  <p>User's name.</p>							|
-| phone			| String			|  <p>User's phone.</p>							|
-| picture			| String			| **optional** <p>User's picture.</p>							|
-| role			| String			| **optional** <p>User's role.</p>							|
-
-## Delete user
-
-
-
-	DELETE /users/:id
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>User access_token.</p>							|
-
-## Receive Code Verification
-
-
-
-	POST /users/receive-code
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| phone			| String			|  <p>The user's phone where the code verification was sent.</p>							|
-| code			| String			|  <p>The code that was sent.</p>							|
-
-## Retrieve current user
-
-
-
-	GET /users/me
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>User access_token.</p>							|
-
-## Retrieve user
-
-
-
-	GET /users/:id
-
-
-## Retrieve users
-
-
-
-	GET /users
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>User access_token.</p>							|
-| q			| String			| **optional** <p>Query to search.</p>							|
-| page			| Number			| **optional** <p>Page number.</p>							|
-| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
-| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
-| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
-
-## Send Code Verification
-
-
-
-	POST /users/send-code
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| phone			| String			|  <p>The user's phone where the code verification will be sent.</p>							|
-
-## Update password
-
-
-
-	PUT /users/:id/password
-
-### Headers
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| Authorization			| String			|  <p>Basic authorization with email and password.</p>							|
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| password			| String			|  <p>User's new password.</p>							|
-
-## Update user
-
-
-
-	PUT /users/:id
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>User access_token.</p>							|
-| name			| String			|  <p>User's name.</p>							|
-| phone			| String			|  <p>User's phone.</p>							|
-| picture			| String			| **optional** <p>User's picture.</p>							|
-
-
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 401 |  | <p>Current user or admin access only.</p> |
+| 404 |  | <p>User not found.</p> |
