@@ -1,5 +1,5 @@
 import http from 'http'
-import { env, mongo, port, ip, apiRoot } from './config'
+import { env, mongo, port, ip, apiRoot, cors } from './config'
 import mongoose from './services/mongoose'
 import express from './services/express'
 import express1 from 'express'
@@ -10,6 +10,7 @@ import './services/firebase/firebase'
 const app = express(apiRoot, api)
 const server = http.createServer(app)
 
+app.use(cors);
 app.use('/static', express1.static(__dirname + path.join('/api/public/')));
 
 if (mongo.uri) {

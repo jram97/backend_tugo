@@ -1,5 +1,6 @@
 import path from 'path'
 import merge from 'lodash/merge'
+import cors from 'cors'
 
 const requireProcessEnv = (name) => {
   if (!process.env[name]) {
@@ -25,6 +26,7 @@ const config = {
     apiRoot: process.env.API_ROOT || '',
     masterKey: requireProcessEnv('MASTER_KEY'),
     jwtSecret: requireProcessEnv('JWT_SECRET'),
+    cors: cors,
     mongo: {
       options: {
         useUnifiedTopology: true,
