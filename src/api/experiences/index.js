@@ -14,7 +14,7 @@ const { name, description, direction, price, lat, long, quotas, start, end, dura
  * @api {post} /experiences Create experiences
  * @apiName CreateExperiences
  * @apiGroup Experiences
- * @apiPermission user
+ * @apiPermission owner, admin
  * @apiParam {String} access_token user access token.
  * @apiParam {String} name Experiences's name.
  * @apiParam {String} description Experiences's description.
@@ -34,38 +34,9 @@ const { name, description, direction, price, lat, long, quotas, start, end, dura
  * @apiError 401 user access only.
  */
 router.post('/',
-  token({ required: true, roles: ['user'] }),
+  token({ required: true, roles: ['owner', 'admin'] }),
   body({ name, description, direction, price, lat, long, quotas, start, end, duration, extra, enabled }),
   create)
-
-/**
- * @api {post} /experiences/admin Create experiences
- * @apiName CreateExperiences
- * @apiGroup Experiences
- * @apiPermission admin
- * @apiParam {String} access_token admin access token.
- * @apiParam {String} name Experiences's name.
- * @apiParam {String} description Experiences's description.
- * @apiParam {String} direction Experiences's direction.
- * @apiParam {String} price Experiences's price.
- * @apiParam {String} lat Experiences's latitud.
- * @apiParam {String} long Experiences's longitud.
- * @apiParam {String} quotas Experiences's quotas.
- * @apiParam {String} start Experiences's start.
- * @apiParam {String} end Experiences's end.
- * @apiParam {String} duration Experiences's duration.
- * @apiParam {Array} extra Experiences's extra.
- * @apiParam {Boolean} [enabled] Experiences's enabled.
- * @apiSuccess {Object} experiences Experiences's data.
- * @apiError {Object} 400 Some parameters may contain invalid values.
- * @apiError 404 Experiences not found.
- * @apiError 401 admin access only.
- */
-router.post('/admin',
-  token({ required: true, roles: ['admin'] }),
-  body({ name, description, direction, price, lat, long, quotas, start, end, duration, extra, enabled }),
-  create)
-
 
 /**
  * @api {get} /experiences Retrieve experiences
@@ -103,7 +74,7 @@ router.get('/:id',
  * @api {put} /experiences/:id Update experiences
  * @apiName UpdateExperiences
  * @apiGroup Experiences
- * @apiPermission user
+ * @apiPermission owner, admin
  * @apiParam {String} access_token user access token.
  * @apiParam {String} name Experiences's name.
  * @apiParam {String} description Experiences's description.
@@ -123,7 +94,7 @@ router.get('/:id',
  * @apiError 401 user access only.
  */
 router.put('/:id',
-  token({ required: true }),
+  token({ required: true, roles: ['owner', 'admin'] }),
   body({ name, description, direction, price, lat, long, quotas, start, end, duration, extra, enabled }),
   update)
 
@@ -131,14 +102,14 @@ router.put('/:id',
  * @api {delete} /experiences/:id Delete experiences
  * @apiName DeleteExperiences
  * @apiGroup Experiences
- * @apiPermission user
+ * @apiPermission owner, admin
  * @apiParam {String} access_token user access token.
  * @apiSuccess (Success 204) 204 No Content.
  * @apiError 404 Experiences not found.
  * @apiError 401 user access only.
  */
 router.delete('/:id',
-  token({ required: true }),
+  token({ required: true, roles: ['owner', 'admin'] }),
   destroy)
 
 export default router

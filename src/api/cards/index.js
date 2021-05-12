@@ -13,7 +13,7 @@ const { type, card, date, cvv, name, ip } = schema.tree
  * @api {post} /cards Create Card
  * @apiName CreateCard
  * @apiGroup Card
- * @apiPermission user
+ * @apiPermission user, owner
  * @apiParam {String} access_token user access token.
  * @apiParam {String} type Card's type.
  * @apiParam {String} card Card's card.
@@ -27,7 +27,7 @@ const { type, card, date, cvv, name, ip } = schema.tree
  * @apiError 401 user access only.
  */
 router.post('/',
-  token({ required: true }),
+  token({ required: true, roles: ['owner', 'user'] }),
   body({ type, card, date, cvv, name, ip }),
   create)
 
@@ -35,7 +35,7 @@ router.post('/',
  * @api {get} /cards Retrieve Cards
  * @apiName RetrieveCards
  * @apiGroup Card
- * @apiPermission user
+ * @apiPermission user, owner, admin
  * @apiParam {String} access_token user access token.
  * @apiUse listParams
  * @apiSuccess {Number} count Total amount of Card.
@@ -44,7 +44,7 @@ router.post('/',
  * @apiError 401 user access only.
  */
 router.get('/',
-  token({ required: true }),
+  token({ required: true, roles: ['owner', 'user', 'admin'] }),
   query(),
   index)
 
@@ -52,7 +52,7 @@ router.get('/',
  * @api {get} /cards/:id Retrieve Card
  * @apiName RetrieveCard
  * @apiGroup Card
- * @apiPermission user
+ * @apiPermission user, owner, admin
  * @apiParam {String} access_token user access token.
  * @apiSuccess {Object} card Card's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
@@ -60,14 +60,14 @@ router.get('/',
  * @apiError 401 user access only.
  */
 router.get('/:id',
-  token({ required: true }),
+  token({ required: true, roles: ['owner', 'user', 'admin'] }),
   show)
 
 /**
  * @api {put} /cards/:id Update Card
  * @apiName UpdateCard
  * @apiGroup Card
- * @apiPermission user
+ * @apiPermission user, owner
  * @apiParam {String} access_token user access token.
  * @apiParam {String} type Card's type.
  * @apiParam {String} card Card's card.
@@ -81,7 +81,7 @@ router.get('/:id',
  * @apiError 401 user access only.
  */
 router.put('/:id',
-  token({ required: true }),
+  token({ required: true, roles: ['owner', 'user'] }),
   body({ type, card, date, cvv, name, ip }),
   update)
 
@@ -89,14 +89,14 @@ router.put('/:id',
  * @api {delete} /cards/:id Delete Card
  * @apiName DeleteCard
  * @apiGroup Card
- * @apiPermission user
+ * @apiPermission user, owner, admin
  * @apiParam {String} access_token user access token.
  * @apiSuccess (Success 204) 204 No Content.
  * @apiError 404 Card not found.
  * @apiError 401 user access only.
  */
 router.delete('/:id',
-  token({ required: true }),
+  token({ required: true, roles: ['owner', 'user', 'admin'] }),
   destroy)
 
 export default router

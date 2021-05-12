@@ -13,7 +13,7 @@ const { experiences, title, description, star } = schema.tree
  * @api {post} /reviews Create review
  * @apiName CreateReview
  * @apiGroup Review
- * @apiPermission user
+ * @apiPermission user, owner
  * @apiParam {String} access_token user access token.
  * @apiParam {ObjectId} experiences Review's experiencesId.
  * @apiParam {String} title Review's title.
@@ -25,7 +25,7 @@ const { experiences, title, description, star } = schema.tree
  * @apiError 401 user access only.
  */
 router.post('/',
-  token({ required: true }),
+  token({ required: true, roles: ['owner', 'user'] }),
   body({ experiences, title, description, star }),
   create)
 
@@ -57,7 +57,7 @@ router.get('/:id',
  * @api {put} /reviews/:id Update review
  * @apiName UpdateReview
  * @apiGroup Review
- * @apiPermission user
+ * @apiPermission user, owner, admin
  * @apiParam {String} access_token user access token.
  * @apiParam {ObjectId} experiences Review's experiencesId.
  * @apiParam {String} title Review's title.
@@ -69,7 +69,7 @@ router.get('/:id',
  * @apiError 401 user access only.
  */
 router.put('/:id',
-  token({ required: true }),
+  token({ required: true, roles: ['owner', 'user', 'admin'] }),
   body({ experiences, title, description, star }),
   update)
 
@@ -77,14 +77,14 @@ router.put('/:id',
  * @api {delete} /reviews/:id Delete review
  * @apiName DeleteReview
  * @apiGroup Review
- * @apiPermission user
+ * @apiPermission user, owner, admin
  * @apiParam {String} access_token user access token.
  * @apiSuccess (Success 204) 204 No Content.
  * @apiError 404 Review not found.
  * @apiError 401 user access only.
  */
 router.delete('/:id',
-  token({ required: true }),
+  token({ required: true, roles: ['owner', 'user', 'admin'] }),
   destroy)
 
 export default router

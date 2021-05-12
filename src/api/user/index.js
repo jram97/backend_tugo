@@ -44,7 +44,7 @@ router.get('/phone-available',
  * @apiSuccess {Object} user User's data.
  */
 router.get('/me',
-  token({ required: true }),
+  token({ required: true, roles: ['owner', 'user', 'admin'] }),
   showMe)
 
 /**
@@ -67,7 +67,7 @@ router.get('/:id',
  * @apiParam {String} [name] User's name.
  * @apiParam {String} phone User's phone.
  * @apiParam {String} [picture] User's picture.
- * @apiParam {String=user,admin} [role=user] User's role.
+ * @apiParam {String=user,admin,owner} [role=user] User's role.
  * @apiSuccess (Sucess 201) {Object} user User's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 409 Email already registered.
@@ -91,7 +91,7 @@ router.post('/',
  * @apiError 404 User not found.
  */
 router.put('/:id',
-  token({ required: true }),
+  token({ required: true, roles: ['owner', 'user', 'admin'] }),
   body({ name, phone, picture }),
   update)
 
@@ -108,7 +108,7 @@ router.put('/:id',
  * @apiError 404 User not found.
  */
  router.put('/token/:id',
- token({ required: true }),
+ token({ required: true, roles: ['owner', 'user', 'admin'] }),
  body({ firebaseTokens }),
  assingToken)
 

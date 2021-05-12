@@ -14,7 +14,7 @@ const { experiences } = schema.tree
  * @api {post} /favorites Create favorites
  * @apiName CreateFavorites
  * @apiGroup Favorites
- * @apiPermission user
+ * @apiPermission user, owner
  * @apiParam {String} access_token user access token.
  * @apiParam {ObjectId} experiences Favorites's experiencesId.
  * @apiSuccess {Object} favorites Favorites's data.
@@ -23,7 +23,7 @@ const { experiences } = schema.tree
  * @apiError 401 user access only.
  */
 router.post('/',
-  token({ required: true }),
+  token({ required: true, roles: ['owner', 'user'] }),
   body({ experiences }),
   create)
 
@@ -31,7 +31,7 @@ router.post('/',
  * @api {get} /favorites Retrieve favorites
  * @apiName RetrieveFavorites
  * @apiGroup Favorites
- * @apiPermission user
+ * @apiPermission user, owner
  * @apiParam {String} access_token user access token.
  * @apiUse listParams
  * @apiSuccess {Number} count Total amount of favorites.
@@ -40,7 +40,7 @@ router.post('/',
  * @apiError 401 user access only.
  */
 router.get('/',
-  token({ required: true }),
+  token({ required: true, roles: ['owner', 'user'] }),
   query({
     user: { paths: ['user'] }
   }, {
@@ -52,14 +52,14 @@ router.get('/',
  * @api {delete} /favorites/:id Delete favorites
  * @apiName DeleteFavorites
  * @apiGroup Favorites
- * @apiPermission user
+ * @apiPermission user, owner
  * @apiParam {String} access_token user access token.
  * @apiSuccess (Success 204) 204 No Content.
  * @apiError 404 Favorites not found.
  * @apiError 401 user access only.
  */
 router.delete('/:id',
-  token({ required: true }),
+  token({ required: true, roles: ['owner', 'user'] }),
   destroy)
 
 export default router

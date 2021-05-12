@@ -25,7 +25,7 @@ const { name } = schema.tree
  * @api {post} /images Create images
  * @apiName CreateImages
  * @apiGroup Images
- * @apiPermission user
+ * @apiPermission owner, admin
  * @apiParam {[File]} name Send files.
  * @apiParam {ObjectId} experiencesId Experience's Object Id.
  * @apiSuccess {Object} images Images's data.
@@ -33,7 +33,7 @@ const { name } = schema.tree
  * @apiError 404 Images not found.
  */
 router.post('/',
-  token({ required: true }),
+  token({ required: true, roles: ['owner', 'admin'] }),
   upload.array('name', 12),
   create)
 
@@ -65,14 +65,14 @@ router.get('/:id',
  * @api {delete} /images/:id/:experiencesId Delete images
  * @apiName DeleteImages
  * @apiGroup Images
- * @apiPermission user
+ * @apiPermission owner, admin
  * @apiParam {String} access_token user access token.
  * @apiSuccess (Success 204) 204 No Content.
  * @apiError 404 Images not found.
  * @apiError 401 user access only.
  */
 router.delete('/:id/:experiencesId',
-  token({ required: true }),
+  token({ required: true, roles: ['owner', 'admin'] }),
   destroy)
 
 export default router

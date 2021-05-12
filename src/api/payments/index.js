@@ -13,7 +13,7 @@ const { experiences, date, adult, children, card, mount, enabled, pay } = schema
  * @api {post} /payments Create payments
  * @apiName CreatePayments
  * @apiGroup Payments
- * @apiPermission user
+ * @apiPermission user, owner, admin
  * @apiParam {String} access_token user access token.
  * @apiParam {ObjectId} experiences Payments's experiences.
  * @apiParam {String} date Payments's date.
@@ -29,7 +29,7 @@ const { experiences, date, adult, children, card, mount, enabled, pay } = schema
  * @apiError 401 user access only.
  */
 router.post('/',
-  token({ required: true }),
+  token({ required: true, roles: ['owner', 'user', 'admin'] }),
   body({ experiences, date, adult, children, card, mount, enabled, pay }),
   create)
 
@@ -37,7 +37,7 @@ router.post('/',
  * @api {get} /payments Retrieve payments
  * @apiName RetrievePayments
  * @apiGroup Payments
- * @apiPermission user
+ * @apiPermission user, owner, admin
  * @apiParam {String} access_token user access token.
  * @apiUse listParams
  * @apiSuccess {Number} count Total amount of payments.
@@ -46,7 +46,7 @@ router.post('/',
  * @apiError 401 user access only.
  */
 router.get('/',
-  token({ required: true }),
+  token({ required: true, roles: ['owner', 'user', 'admin'] }),
   query(),
   index)
 
@@ -54,7 +54,7 @@ router.get('/',
  * @api {get} /payments/:id Retrieve payments
  * @apiName RetrievePayments
  * @apiGroup Payments
- * @apiPermission user
+ * @apiPermission user, owner, admin
  * @apiParam {String} access_token user access token.
  * @apiSuccess {Object} payments Payments's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
@@ -62,14 +62,14 @@ router.get('/',
  * @apiError 401 user access only.
  */
 router.get('/:id',
-  token({ required: true }),
+  token({ required: true, roles: ['owner', 'user', 'admin'] }),
   show)
 
 /**
  * @api {put} /payments/:id Update payments
  * @apiName UpdatePayments
  * @apiGroup Payments
- * @apiPermission user
+ * @apiPermission user, owner, admin
  * @apiParam {String} access_token user access token.
  * @apiParam {ObjectId} experiences Payments's experiences.
  * @apiParam {String} date Payments's date.
@@ -85,7 +85,7 @@ router.get('/:id',
  * @apiError 401 user access only.
  */
 router.put('/:id',
-  token({ required: true }),
+  token({ required: true, roles: ['owner', 'user', 'admin'] }),
   body({ experiences, date, adult, children, card, mount, enabled, pay }),
   update)
 
@@ -93,14 +93,14 @@ router.put('/:id',
  * @api {delete} /payments/:id Delete payments
  * @apiName DeletePayments
  * @apiGroup Payments
- * @apiPermission user
+ * @apiPermission user, owner, admin
  * @apiParam {String} access_token user access token.
  * @apiSuccess (Success 204) 204 No Content.
  * @apiError 404 Payments not found.
  * @apiError 401 user access only.
  */
 router.delete('/:id',
-  token({ required: true }),
+  token({ required: true, roles: ['owner', 'user', 'admin'] }),
   destroy)
 
 export default router

@@ -1197,7 +1197,7 @@ POST /users
 | name | `String` | **optional** <p>User's name.</p> |
 | phone | `String` | <p>User's phone.</p> |
 | picture | `String` | **optional** <p>User's picture.</p> |
-| role | `String` | **optional** <p>User's role.</p>_Default value: user_<br>_Allowed values: user,admin_ |
+| role | `String` | **optional** <p>User's role.</p>_Default value: user_<br>_Allowed values: user,admin,owner_ |
 
 ### Success response
 
