@@ -45,6 +45,26 @@ const userSchema = new Schema({
     type: String,
     trim: true
   },
+  alias: {
+    type: String,
+    trim: true
+  },
+  direction: {
+    type: String,
+    trim: true
+  },
+  description: {
+    type: String,
+    trim: true
+  },
+  gender: {
+    type: String,
+    trim: true
+  },
+  birthday: {
+    type: String,
+    trim: true
+  },
   firebaseTokens: {
     type: Array
   },
@@ -79,7 +99,7 @@ userSchema.pre('save', function (next) {
 userSchema.methods = {
   view (full) {
     const view = {}
-    let fields = ['id', 'name', 'email', 'picture', 'firebaseTokens', "role", "phone"]
+    let fields = ['id', 'name', 'email', 'picture', 'firebaseTokens', 'role', 'phone', 'name', 'description', 'birthday', 'gender', 'direction', 'alias']
 
     if (full) {
       fields = [...fields, 'email', 'createdAt']

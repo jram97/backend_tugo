@@ -7,7 +7,7 @@ import { schema } from './model'
 export User, { schema } from './model'
 
 const router = new Router()
-const { email, password, name, picture, phone, role, firebaseTokens } = schema.tree
+const { email, password, picture, phone, role, firebaseTokens, name, description, birthday, gender, direction, alias } = schema.tree
 
 /**
  * @api {get} /users Retrieve users
@@ -84,6 +84,11 @@ router.post('/',
  * @apiParam {String} access_token User access_token.
  * @apiParam {String} name User's name.
  * @apiParam {String} phone User's phone.
+ * @apiParam {String} description User's description.
+ * @apiParam {String} birthday User's birthday.
+ * @apiParam {String} gender User's gender.
+ * @apiParam {String} direction User's direction.
+ * @apiParam {String} alias User's alias.
  * @apiParam {String} [picture] User's picture.
  * @apiSuccess {Object} user User's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
@@ -92,7 +97,7 @@ router.post('/',
  */
 router.put('/:id',
   token({ required: true, roles: ['owner', 'user', 'admin'] }),
-  body({ name, phone, picture }),
+  body({ phone, picture, name, description, birthday, gender, direction, alias }),
   update)
 
 /**
