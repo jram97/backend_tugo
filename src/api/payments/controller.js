@@ -5,7 +5,7 @@ import { Experiences } from '../experiences'
 export const create = ({ user, bodymen: { body } }, res, next) =>
   Payments.create({ ...body, user })
     .then(async (payments) => {
-      if (payments.pay) {
+      if (body.pay && payments.pay) {
         const params = {
           _id: body.experiences
         }
@@ -55,7 +55,7 @@ export const update = ({ user, bodymen: { body }, params }, res, next) =>
     .then(authorOrAdmin(res, user, 'user'))
     .then((payments) => payments ? Object.assign(payments, body).save() : null)
     .then(async (payments) => {
-      if (payments.pay) {
+      if (body.pay && payments.pay) {
         const params = {
           _id: payments.experiences
         }

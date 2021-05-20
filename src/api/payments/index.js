@@ -18,7 +18,7 @@ const { experiences, date, adult, children, card, mount, enabled, pay } = schema
  * @apiParam {ObjectId} experiences Payments's experiences.
  * @apiParam {String} date Payments's date.
  * @apiParam {String} adult Payments's adult.
- * @apiParam {String} children Payments's children.
+ * @apiParam {String} [children] Payments's children.
  * @apiParam {ObjectId} card Payments's card.
  * @apiParam {String} mount Payments's mount.
  * @apiParam {Boolean} [enabled] Payments's enabled.
@@ -74,7 +74,7 @@ router.get('/:id',
  * @apiParam {ObjectId} experiences Payments's experiences.
  * @apiParam {String} date Payments's date.
  * @apiParam {String} adult Payments's adult.
- * @apiParam {String} children Payments's children.
+ * @apiParam {String} [children] Payments's children.
  * @apiParam {ObjectId} card Payments's card.
  * @apiParam {String} mount Payments's mount.
  * @apiParam {Boolean} [enabled] Payments's enabled.

@@ -34,6 +34,7 @@ router.post('/',
  * @apiPermission user, owner
  * @apiParam {String} access_token user access token.
  * @apiUse listParams
+ * @apiParam {String} [user] user created favorite.
  * @apiSuccess {Number} count Total amount of favorites.
  * @apiSuccess {Object[]} rows List of favorites.
  * @apiError {Object} 400 Some parameters may contain invalid values.

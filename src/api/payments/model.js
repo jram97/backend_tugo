@@ -13,7 +13,7 @@ const paymentsSchema = new Schema({
     required: true
   },
   date: {
-    type: String
+    type: Array
   },
   adult: {
     type: String,

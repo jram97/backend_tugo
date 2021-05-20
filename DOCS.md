@@ -43,6 +43,12 @@
    - [Retrieve review](#Retrieve-review)
    - [Retrieve reviews](#Retrieve-reviews)
    - [Update review](#Update-review)
+ - [Schedule](#Schedule)
+   - [Create schedule](#Create-schedule)
+   - [Delete schedule](#Delete-schedule)
+   - [Retrieve schedule](#Retrieve-schedule)
+   - [Retrieve schedules](#Retrieve-schedules)
+   - [Update schedule](#Update-schedule)
  - [User](#User)
    - [Add Firebase Token for User](#Add-Firebase-Token-for-User)
    - [Available phone](#Available-phone)
@@ -424,6 +430,9 @@ GET /experiences
 
 | Name     | Type       | Description                           |
 |----------|------------|---------------------------------------|
+| user | `String` | **optional** <p>user created experience.</p> |
+| direction | `String` | **optional** <p>direction experience.</p> |
+| rating | `Number` | **optional** <p>read message.</p> |
 | q | `String` | **optional** <p>Query to search.</p> |
 | page | `Number` | **optional** <p>Page number.</p>_Default value: 1_<br>_Size range: 1..30_<br> |
 | limit | `Number` | **optional** <p>Amount of returned items.</p>_Default value: 30_<br>_Size range: 1..100_<br> |
@@ -566,6 +575,7 @@ GET /favorites
 | Name     | Type       | Description                           |
 |----------|------------|---------------------------------------|
 | access_token | `String` | <p>user access token.</p> |
+| user | `String` | **optional** <p>user created favorite.</p> |
 | q | `String` | **optional** <p>Query to search.</p> |
 | page | `Number` | **optional** <p>Page number.</p>_Default value: 1_<br>_Size range: 1..30_<br> |
 | limit | `Number` | **optional** <p>Amount of returned items.</p>_Default value: 30_<br>_Size range: 1..100_<br> |
@@ -701,8 +711,8 @@ POST /messages
 | Name     | Type       | Description                           |
 |----------|------------|---------------------------------------|
 | access_token | `String` | <p>user access token.</p> |
-| user_by |  | <p>Messages's user_by.</p> |
-| text |  | <p>Messages's text.</p> |
+| user_by | `ObjectId` | <p>Messages's user_by.</p> |
+| text | `String` | <p>Messages's text.</p> |
 
 ### Success response
 
@@ -767,6 +777,11 @@ GET /messages
 | by | `ObjectId` | **optional** <p>user_by'Id.</p> |
 | from | `ObjectId` | **optional** <p>user_from'Id.</p> |
 | read | `Boolean` | **optional** <p>read message.</p> |
+| q | `String` | **optional** <p>Query to search.</p> |
+| page | `Number` | **optional** <p>Page number.</p>_Default value: 1_<br>_Size range: 1..30_<br> |
+| limit | `Number` | **optional** <p>Amount of returned items.</p>_Default value: 30_<br>_Size range: 1..100_<br> |
+| sort | `String[]` | **optional** <p>Order of returned items.</p>_Default value: -createdAt_<br> |
+| fields | `String[]` | **optional** <p>Fields to be returned.</p> |
 
 ### Success response
 
@@ -835,7 +850,7 @@ POST /payments
 | experiences | `ObjectId` | <p>Payments's experiences.</p> |
 | date | `String` | <p>Payments's date.</p> |
 | adult | `String` | <p>Payments's adult.</p> |
-| children | `String` | <p>Payments's children.</p> |
+| children | `String` | **optional** <p>Payments's children.</p> |
 | card | `ObjectId` | <p>Payments's card.</p> |
 | mount | `String` | <p>Payments's mount.</p> |
 | enabled | `Boolean` | **optional** <p>Payments's enabled.</p> |
@@ -940,7 +955,7 @@ PUT /payments/:id
 | experiences | `ObjectId` | <p>Payments's experiences.</p> |
 | date | `String` | <p>Payments's date.</p> |
 | adult | `String` | <p>Payments's adult.</p> |
-| children | `String` | <p>Payments's children.</p> |
+| children | `String` | **optional** <p>Payments's children.</p> |
 | card | `ObjectId` | <p>Payments's card.</p> |
 | mount | `String` | <p>Payments's mount.</p> |
 | enabled | `Boolean` | **optional** <p>Payments's enabled.</p> |
@@ -1123,6 +1138,174 @@ PUT /reviews/:id
 | 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
 | 404 |  | <p>Review not found.</p> |
 | 401 |  | <p>user access only.</p> |
+
+# <a name='Schedule'></a> Schedule
+
+## <a name='Create-schedule'></a> Create schedule
+[Back to top](#top)
+
+```
+POST /schedules
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>owner access token.</p> |
+| day | `String` | <p>Schedule's day.</p> |
+| start | `String` | <p>Schedule's start.</p> |
+| experience | `ObjectId` | <p>Schedule's experience.</p> |
+| date | `date` | <p>Schedule's date.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| schedule | `Object` | <p>Schedule's data.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 404 |  | <p>Schedule not found.</p> |
+| 401 |  | <p>owner access only.</p> |
+
+## <a name='Delete-schedule'></a> Delete schedule
+[Back to top](#top)
+
+```
+DELETE /schedules/:id
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>owner access token.</p> |
+
+### Success response
+
+#### Success response - `Success 204`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 204 |  | <p>No Content.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 404 |  | <p>Schedule not found.</p> |
+| 401 |  | <p>owner access only.</p> |
+
+## <a name='Retrieve-schedule'></a> Retrieve schedule
+[Back to top](#top)
+
+```
+GET /schedules/:id
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>admin access token.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| schedule | `Object` | <p>Schedule's data.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 404 |  | <p>Schedule not found.</p> |
+| 401 |  | <p>admin access only.</p> |
+
+## <a name='Retrieve-schedules'></a> Retrieve schedules
+[Back to top](#top)
+
+```
+GET /schedules
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| experience | `String` | **optional** <p>experience info.</p> |
+| q | `String` | **optional** <p>Query to search.</p> |
+| page | `Number` | **optional** <p>Page number.</p>_Default value: 1_<br>_Size range: 1..30_<br> |
+| limit | `Number` | **optional** <p>Amount of returned items.</p>_Default value: 30_<br>_Size range: 1..100_<br> |
+| sort | `String[]` | **optional** <p>Order of returned items.</p>_Default value: -createdAt_<br> |
+| fields | `String[]` | **optional** <p>Fields to be returned.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| count | `Number` | <p>Total amount of schedules.</p> |
+| rows | `Object[]` | <p>List of schedules.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+
+## <a name='Update-schedule'></a> Update schedule
+[Back to top](#top)
+
+```
+PUT /schedules/:id
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>owner access token.</p> |
+| day | `String` | <p>Schedule's day.</p> |
+| start | `String` | <p>Schedule's start.</p> |
+| experience | `ObjectId` | <p>Schedule's experience.</p> |
+| date | `Date` | <p>Schedule's date.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| schedule | `Object` | <p>Schedule's data.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 404 |  | <p>Schedule not found.</p> |
+| 401 |  | <p>owner access only.</p> |
 
 # <a name='User'></a> User
 
@@ -1442,6 +1625,11 @@ PUT /users/:id
 | access_token | `String` | <p>User access_token.</p> |
 | name | `String` | <p>User's name.</p> |
 | phone | `String` | <p>User's phone.</p> |
+| description | `String` | <p>User's description.</p> |
+| birthday | `String` | <p>User's birthday.</p> |
+| gender | `String` | <p>User's gender.</p> |
+| direction | `String` | <p>User's direction.</p> |
+| alias | `String` | <p>User's alias.</p> |
 | picture | `String` | **optional** <p>User's picture.</p> |
 
 ### Success response

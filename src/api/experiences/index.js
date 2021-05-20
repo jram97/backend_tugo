@@ -43,6 +43,9 @@ router.post('/',
  * @apiName RetrieveExperiences
  * @apiGroup Experiences
  * @apiUse listParams
+ * @apiParam {String} [user] user created experience.
+ * @apiParam {String} [direction] direction experience.
+ * @apiParam {Number} [rating] read message.
  * @apiSuccess {Number} count Total amount of experiences.
  * @apiSuccess {Object[]} rows List of experiences.
  * @apiError {Object} 400 Some parameters may contain invalid values.

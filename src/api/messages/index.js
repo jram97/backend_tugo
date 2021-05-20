@@ -15,8 +15,8 @@ const { user_by, text, read } = schema.tree
  * @apiGroup Messages
  * @apiPermission user, owner, admin
  * @apiParam {String} access_token user access token.
- * @apiParam user_by Messages's user_by.
- * @apiParam text Messages's text.
+ * @apiParam {ObjectId} user_by Messages's user_by.
+ * @apiParam {String} text Messages's text.
  * @apiSuccess {Object} messages Messages's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Messages not found.
@@ -32,10 +32,11 @@ router.post('/',
  * @apiName RetrieveMessages
  * @apiGroup Messages
  * @apiPermission user, owner
+ * @apiUse listParams
  * @apiParam {String} access_token user access token.
- * @apiParam {ObjectId} [by] user_by'Id.
- * @apiParam {ObjectId} [from] user_from'Id.
- * @apiParam {Boolean} [read] read message.
+ * @apiParam {ObjectId} [by] user_by'Id to Search.
+ * @apiParam {ObjectId} [from] user_from'Id to Search.
+ * @apiParam {Boolean} [read] read message to Search.
  * @apiSuccess {Number} count Total amount of messages.
  * @apiSuccess {Object[]} rows List of messages.
  * @apiError {Object} 400 Some parameters may contain invalid values.
