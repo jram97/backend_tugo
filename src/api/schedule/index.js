@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { token } from '../../services/passport'
-import { create, index, show, update, destroy } from './controller'
+import { create, index, show, update, destroy, showByDay } from './controller'
 import { schema } from './model'
 export Schedule, { schema } from './model'
 
@@ -47,6 +47,16 @@ router.get('/',
   }),
   index)
 
+router.get('/by-day',
+  query({
+    experience: { paths: ['experience'] },
+    day: {
+      type: String
+    }
+  }, {
+    experience: true
+  }),
+  showByDay)
 /**
  * @api {get} /schedules/:id Retrieve schedule
  * @apiName RetrieveSchedule
