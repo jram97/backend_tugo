@@ -47,11 +47,26 @@ router.get('/',
   }),
   index)
 
+/**
+ * @api {get} /by-day Schedule by day
+ * @apiName RetriveExperienceSchedule
+ * @apiGroup Schedule
+ * @apiUse listParams
+ * @apiParam {String} experience Experience'Id
+ * @apiParam {String} [day] Retrive the schedule for a specific day e.g "Lunes","Martes"
+ * @apiParam {Date} [date] Retrive the schedule for a specific date using the format e.g 06/07/2021
+ * @apiSuccess {Number} count Total amount of schedules.
+ * @apiSuccess {Object[]} rows, result.
+ * @apiError {Object} 400 Some parameters may contain invalid values.
+ */
 router.get('/by-day',
   query({
     experience: { paths: ['experience'] },
     day: {
       type: String
+    },
+    date: {
+      type: Date
     }
   }, {
     experience: true

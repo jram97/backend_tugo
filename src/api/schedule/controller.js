@@ -30,7 +30,7 @@ export const showByDay = ({ querymen: { query, select, cursor } }, res, next) =>
     .then(count => Schedule.find(query, select, cursor)
       .then((schedules) => ({
         count,
-        row: schedules[0]
+        rows: schedules.map(schedule => schedule)
       }))
     )
     .then(success(res))
