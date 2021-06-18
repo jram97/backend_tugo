@@ -25,7 +25,7 @@ const { day, start, experience, date } = schema.tree
  * @apiError 401 owner access only.
  */
 router.post('/',
-  token({ required: true, roles: ['owner'] }),
+  token({ required: true, roles: ['owner', 'admin'] }),
   body({ day, start, experience, date }),
   create)
 
