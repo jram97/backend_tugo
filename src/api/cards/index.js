@@ -27,7 +27,7 @@ const { type, card, date, cvv, name, ip } = schema.tree
  * @apiError 401 user access only.
  */
 router.post('/',
-  token({ required: true, roles: ['owner', 'user'] }),
+  token({ required: true, roles: ['owner', 'user', 'admin'] }),
   body({ type, card, date, cvv, name, ip }),
   create)
 
