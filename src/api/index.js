@@ -9,6 +9,8 @@ import images from './images'
 import payments from './payments'
 import messages from './messages'
 import schedule from './schedule'
+import categories from './categories'
+import userCategories from './user_categories'
 
 const router = new Router()
 
@@ -45,5 +47,7 @@ router.use('/images', images)
 router.use('/payments', payments)
 router.use('/messages', messages)
 router.use('/schedules', schedule)
+router.use('/categories', categories)
+router.use('/user_categories', userCategories)
 
 export default router
