@@ -48,6 +48,7 @@
    - [Delete schedule](#Delete-schedule)
    - [Retrieve schedule](#Retrieve-schedule)
    - [Retrieve schedules](#Retrieve-schedules)
+   - [Schedule by day](#Schedule-by-day)
    - [Update schedule](#Update-schedule)
  - [User](#User)
    - [Add Firebase Token for User](#Add-Firebase-Token-for-User)
@@ -774,9 +775,9 @@ GET /messages
 | Name     | Type       | Description                           |
 |----------|------------|---------------------------------------|
 | access_token | `String` | <p>user access token.</p> |
-| by | `ObjectId` | **optional** <p>user_by'Id.</p> |
-| from | `ObjectId` | **optional** <p>user_from'Id.</p> |
-| read | `Boolean` | **optional** <p>read message.</p> |
+| by | `ObjectId` | **optional** <p>user_by'Id to Search.</p> |
+| from | `ObjectId` | **optional** <p>user_from'Id to Search.</p> |
+| read | `Boolean` | **optional** <p>read message to Search.</p> |
 | q | `String` | **optional** <p>Query to search.</p> |
 | page | `Number` | **optional** <p>Page number.</p>_Default value: 1_<br>_Size range: 1..30_<br> |
 | limit | `Number` | **optional** <p>Amount of returned items.</p>_Default value: 30_<br>_Size range: 1..100_<br> |
@@ -1248,7 +1249,7 @@ GET /schedules
 
 | Name     | Type       | Description                           |
 |----------|------------|---------------------------------------|
-| experience | `String` | **optional** <p>experience info.</p> |
+| experience | `String` | **optional** <p>Experience'Id to Search.</p> |
 | q | `String` | **optional** <p>Query to search.</p> |
 | page | `Number` | **optional** <p>Page number.</p>_Default value: 1_<br>_Size range: 1..30_<br> |
 | limit | `Number` | **optional** <p>Amount of returned items.</p>_Default value: 30_<br>_Size range: 1..100_<br> |
@@ -1263,6 +1264,43 @@ GET /schedules
 |----------|------------|---------------------------------------|
 | count | `Number` | <p>Total amount of schedules.</p> |
 | rows | `Object[]` | <p>List of schedules.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+
+## <a name='Schedule-by-day'></a> Schedule by day
+[Back to top](#top)
+
+```
+GET /by-day
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| experience | `String` | <p>Experience'Id</p> |
+| day | `String` | **optional** <p>Retrive the schedule for a specific day e.g &quot;Lunes&quot;,&quot;Martes&quot;</p> |
+| date | `Date` | **optional** <p>Retrive the schedule for a specific date using the format e.g 06/07/2021</p> |
+| q | `String` | **optional** <p>Query to search.</p> |
+| page | `Number` | **optional** <p>Page number.</p>_Default value: 1_<br>_Size range: 1..30_<br> |
+| limit | `Number` | **optional** <p>Amount of returned items.</p>_Default value: 30_<br>_Size range: 1..100_<br> |
+| sort | `String[]` | **optional** <p>Order of returned items.</p>_Default value: -createdAt_<br> |
+| fields | `String[]` | **optional** <p>Fields to be returned.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| count | `Number` | <p>Total amount of schedules.</p> |
+| rows | `Object[]` | <p>, result.</p> |
 
 ### Error response
 

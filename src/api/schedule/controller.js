@@ -25,6 +25,17 @@ export const show = ({ params }, res, next) =>
     .then(success(res))
     .catch(next)
 
+export const showByDay = ({ querymen: { query, select, cursor } }, res, next) => 
+  Schedule.count(query)
+    .then(count => Schedule.find(query, select, cursor)
+      .then((schedules) => ({
+        count,
+        rows: schedules.map(schedule => schedule)
+      }))
+    )
+    .then(success(res))
+    .catch(next)
+
 export const update = ({ bodymen: { body }, params }, res, next) =>
   Schedule.findById(params.id)
     .then(notFound(res))
