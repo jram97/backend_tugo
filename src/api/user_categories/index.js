@@ -11,11 +11,12 @@ const router = new Router()
 const { user, categories } = schema.tree
 
 router.post('/',
-  token({ required: true, roles: ['owner', 'admin'] }),
+  token({ required: true, roles: ['user', 'admin'] }),
   body({ categories }),
   saveCategory)
 
 router.get('/',
+  token({ required: true, roles: ['user', 'admin'] }),
   query({
     user: { paths: ['user'] }
   }, {
@@ -24,7 +25,7 @@ router.get('/',
   index)
 
 router.delete('/:id',
-  token({ required: true, roles: ['owner', 'user'] }),
+  token({ required: true, roles: ['user', 'admin'] }),
   destroy)
 
 export default router
