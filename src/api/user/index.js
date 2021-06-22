@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { password as passwordAuth, token } from '../../services/passport'
-import { index, showMe, show, create, update, updatePassword, destroy, sendcode, receivecode, assingToken, findByPhone } from './controller'
+import { index, showMe, cards, show, create, update, updatePassword, destroy, sendcode, receivecode, assingToken, findByPhone } from './controller'
 import { schema } from './model'
 export User, { schema } from './model'
 
@@ -34,6 +34,22 @@ router.get('/',
  */
 router.get('/phone-available',
   findByPhone)
+
+/**
+ * @api {get} /users/my-cards Retrieve user's cards
+ * @apiName MyCards
+ * @apiGroup User
+ * @apiPermission admin,user
+ * @apiParam {String} access_token User access_token.
+ * @apiUse listParams
+ * @apiSuccess {Int} count total cards
+ * @apiSuccess {Object[]} rows of user's cards.
+ * @apiError {Object} 400 Some parameters may contain invalid values.
+ * @apiError 401 Admin access only.
+ */
+router.get('/my-cards',
+  token({ required: true, roles: ['user', 'owner'] }),
+  cards)
 
 /**
  * @api {get} /users/me Retrieve current user
@@ -158,6 +174,8 @@ router.delete('/:id',
  */
 router.post('/send-code',
   sendcode)
+
+
 
 /**
  * @api {post} /users/receive-code Receive Code Verification

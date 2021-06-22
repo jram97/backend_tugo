@@ -58,6 +58,7 @@
    - [Receive Code Verification](#Receive-Code-Verification)
    - [Retrieve current user](#Retrieve-current-user)
    - [Retrieve user](#Retrieve-user)
+   - [Retrieve user&#39;s cards](#Retrieve-user&#39;s-cards)
    - [Retrieve users](#Retrieve-users)
    - [Send Code Verification](#Send-Code-Verification)
    - [Update password](#Update-password)
@@ -1546,6 +1547,42 @@ GET /users/:id
 | Name     | Type       | Description                           |
 |----------|------------|---------------------------------------|
 | 404 |  | <p>User not found.</p> |
+
+## <a name='Retrieve-user&#39;s-cards'></a> Retrieve user&#39;s cards
+[Back to top](#top)
+
+```
+GET /users/my-cards
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>User access_token.</p> |
+| q | `String` | **optional** <p>Query to search.</p> |
+| page | `Number` | **optional** <p>Page number.</p>_Default value: 1_<br>_Size range: 1..30_<br> |
+| limit | `Number` | **optional** <p>Amount of returned items.</p>_Default value: 30_<br>_Size range: 1..100_<br> |
+| sort | `String[]` | **optional** <p>Order of returned items.</p>_Default value: -createdAt_<br> |
+| fields | `String[]` | **optional** <p>Fields to be returned.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| count | `Int` | <p>total cards</p> |
+| rows | `Object[]` | <p>of user's cards.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 401 |  | <p>Admin access only.</p> |
 
 ## <a name='Retrieve-users'></a> Retrieve users
 [Back to top](#top)
