@@ -1,6 +1,8 @@
 import { success, notFound, authorOrAdmin } from '../../services/response/'
 import { Experiences } from '.'
 
+import { categories } from '../categories'
+
 export const create = ({ user, bodymen: { body } }, res, next) =>
   Experiences.create({ ...body, user })
     .then((experiences) => experiences.view(true))
@@ -38,6 +40,16 @@ export const show = ({ params }, res, next) =>
     .then((experiences) => experiences ? experiences.view() : null)
     .then(success(res))
     .catch(next)
+
+export const showByCategory = ({ params }, res, next) =>
+  Experiences.find({ category: params.idCategory })
+    .populate('category', 'name')
+    .then(notFound(res))
+    .then((experiences) => ({
+      count: experiences.length,
+      rows: experiences.map((exp) => exp.view())
+    }))
+    .then(success(res))
 
 export const update = ({ user, bodymen: { body }, params }, res, next) =>
   Experiences.findById(params.id)
