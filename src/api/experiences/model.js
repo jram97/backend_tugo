@@ -7,6 +7,10 @@ const experiencesSchema = new Schema({
     ref: 'User',
     required: true
   }],
+  category: [{
+    type: Schema.ObjectId,
+    ref: 'categories'
+  }],
   name: {
     type: String,
     required: true,
@@ -71,10 +75,11 @@ const experiencesSchema = new Schema({
 })
 
 experiencesSchema.methods = {
-  view(full) {
+  view (full) {
     const view = {
       // simple view
       id: this.id,
+      category: this.category.map((category) => category.view(full)),
       user: this.user,
       name: this.name,
       description: this.description,
