@@ -18,6 +18,7 @@
    - [Create experiences](#Create-experiences)
    - [Delete experiences](#Delete-experiences)
    - [Retrieve experiences](#Retrieve-experiences)
+   - [Show experiences by category](#Show-experiences-by-category)
    - [Update experiences](#Update-experiences)
  - [Favorites](#Favorites)
    - [Create favorites](#Create-favorites)
@@ -457,6 +458,37 @@ GET /experiences
 | Name     | Type       | Description                           |
 |----------|------------|---------------------------------------|
 | 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+
+## <a name='Show-experiences-by-category'></a> Show experiences by category
+[Back to top](#top)
+
+```
+GET /experiences/:idCategory
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| count | `Number` | <p>Total amount of experiences.</p> |
+| rows | `Object[]` | <p>List of experiences.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 404 |  | <p>Experiences not found.</p> |
+| 401 |  | <p>user access only.</p> |
 
 ## <a name='Update-experiences'></a> Update experiences
 [Back to top](#top)

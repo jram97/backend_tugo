@@ -79,9 +79,10 @@ router.get('/:id',
  * @apiGroup Experiences
  * @apiPermission owner, admin, user
  * @apiParam {String} access_token user access token.
- * @apiSuccess {Object} experiences Experiences's data.
  * @apiError 404 Experiences not found.
  * @apiError 401 user access only.
+ * @apiSuccess {Number} count Total amount of experiences.
+ * @apiSuccess {Object[]} rows List of experiences.
  */
 router.get('/by-category/:idCategory',
   token({ required: true, roles: ['owner', 'admin', 'user'] }),
