@@ -39,7 +39,7 @@ router.get('/phone-available',
  * @api {get} /users/my-cards Retrieve user's cards
  * @apiName MyCards
  * @apiGroup User
- * @apiPermission admin,user
+ * @apiPermission admin,user,owner
  * @apiParam {String} access_token User access_token.
  * @apiUse listParams
  * @apiSuccess {Int} count total cards
@@ -48,7 +48,7 @@ router.get('/phone-available',
  * @apiError 401 Admin access only.
  */
 router.get('/my-cards',
-  token({ required: true, roles: ['user', 'owner'] }),
+  token({ required: true, roles: ['user', 'owner', 'admin'] }),
   cards)
 
 /**
