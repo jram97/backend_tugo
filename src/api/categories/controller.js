@@ -1,4 +1,4 @@
-import { success, notFound } from '../../services/response/'
+import { success, notFound, authorOrAdmin } from '../../services/response/'
 import { categories } from '.'
 
 export const create = ({ bodymen: { body } }, res, next) =>
@@ -17,6 +17,15 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
     .then(success(res))
     .catch(next)
 
+export const update = ({ user, params, bodymen: { body } }, res, next) =>
+  categories.findById(params.id)
+    .then(notFound(res))
+    .then(authorOrAdmin(res, user, 'user'))
+    .then((category) => category ? Object.assign(category, body).save() : null)
+    .then((category) => category ? category.view(true) : null)
+    .then(success(res))
+    .catch(next)
+
 export const show = (req, res, next) =>
   categories.findById(req.params.id)
     .then(notFound(res))
@@ -27,6 +36,7 @@ export const show = (req, res, next) =>
 export const destroy = (req, res, next) =>
   categories.findById(req.params.id)
     .then(notFound(res))
+    .then(authorOrAdmin(res, req.user, 'user'))
     .then((category) => category ? category.remove() : '')
     .then(success(res, 204))
     .catch(next)

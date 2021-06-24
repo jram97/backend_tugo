@@ -3,6 +3,8 @@ import { User } from '.'
 import { sign } from '../../services/jwt'
 import { token } from '../../services/passport';
 
+import { Card } from '../cards'
+
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
@@ -127,6 +129,16 @@ export const updatePassword = ({ bodymen: { body }, params, user }, res, next) =
     .then((user) => user ? user.view(true) : null)
     .then(success(res))
     .catch(next)
+
+export const cards = ({ user }, res, next) => {
+  Card.find({ user })
+    .then((cards) => ({
+      count: cards.length,
+      rows: cards.map((card) => card.view(true))
+    }))
+    .then(success(res))
+    .catch(next)
+}
 
 export const destroy = ({ params }, res, next) =>
   User.findById(params.id)

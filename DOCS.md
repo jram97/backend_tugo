@@ -14,10 +14,16 @@
    - [Retrieve Card](#Retrieve-Card)
    - [Retrieve Cards](#Retrieve-Cards)
    - [Update Card](#Update-Card)
+ - [Categories](#Categories)
+   - [Create category or gusto](#Create-category-or-gusto)
+   - [Remove Category](#Remove-Category)
+   - [Retrive a category](#Retrive-a-category)
+   - [Retrive all categories](#Retrive-all-categories)
  - [Experiences](#Experiences)
    - [Create experiences](#Create-experiences)
    - [Delete experiences](#Delete-experiences)
    - [Retrieve experiences](#Retrieve-experiences)
+   - [Show experiences by category](#Show-experiences-by-category)
    - [Update experiences](#Update-experiences)
  - [Favorites](#Favorites)
    - [Create favorites](#Create-favorites)
@@ -58,10 +64,15 @@
    - [Receive Code Verification](#Receive-Code-Verification)
    - [Retrieve current user](#Retrieve-current-user)
    - [Retrieve user](#Retrieve-user)
+   - [Retrieve user&#39;s cards](#Retrieve-user&#39;s-cards)
    - [Retrieve users](#Retrieve-users)
    - [Send Code Verification](#Send-Code-Verification)
    - [Update password](#Update-password)
    - [Update user](#Update-user)
+ - [User_Categories](#User_Categories)
+   - [Create a category the user](#Create-a-category-the-user)
+   - [delete a category for an user](#delete-a-category-for-an-user)
+   - [Get a category for an user](#Get-a-category-for-an-user)
 
 ___
 
@@ -345,6 +356,100 @@ PUT /cards/:id
 | 404 |  | <p>Card not found.</p> |
 | 401 |  | <p>user access only.</p> |
 
+# <a name='Categories'></a> Categories
+
+## <a name='Create-category-or-gusto'></a> Create category or gusto
+[Back to top](#top)
+
+```
+POST /categories
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| name | `String` | <p>Category name</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| category | `Object` | <p>Category's data</p> |
+
+## <a name='Remove-Category'></a> Remove Category
+[Back to top](#top)
+
+```
+DELETE /categories/:id
+```
+
+### Success response
+
+#### Success response - `Sucess 204`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 204 |  | <p>No Content</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 404 |  | <p>Category not found.</p> |
+
+## <a name='Retrive-a-category'></a> Retrive a category
+[Back to top](#top)
+
+```
+GET /categories/:id
+```
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| category | `Object` | <p>Category Object</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 404 |  | <p>Category not found.</p> |
+
+## <a name='Retrive-all-categories'></a> Retrive all categories
+[Back to top](#top)
+
+```
+GET /categories
+```
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| count | `Number` | <p>Total amount of categories.</p> |
+| rows | `Object[]` | <p>List of categories.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+
 # <a name='Experiences'></a> Experiences
 
 ## <a name='Create-experiences'></a> Create experiences
@@ -456,6 +561,37 @@ GET /experiences
 | Name     | Type       | Description                           |
 |----------|------------|---------------------------------------|
 | 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+
+## <a name='Show-experiences-by-category'></a> Show experiences by category
+[Back to top](#top)
+
+```
+GET /experiences/:idCategory
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| count | `Number` | <p>Total amount of experiences.</p> |
+| rows | `Object[]` | <p>List of experiences.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 404 |  | <p>Experiences not found.</p> |
+| 401 |  | <p>user access only.</p> |
 
 ## <a name='Update-experiences'></a> Update experiences
 [Back to top](#top)
@@ -1547,6 +1683,42 @@ GET /users/:id
 |----------|------------|---------------------------------------|
 | 404 |  | <p>User not found.</p> |
 
+## <a name='Retrieve-user&#39;s-cards'></a> Retrieve user&#39;s cards
+[Back to top](#top)
+
+```
+GET /users/my-cards
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>User access_token.</p> |
+| q | `String` | **optional** <p>Query to search.</p> |
+| page | `Number` | **optional** <p>Page number.</p>_Default value: 1_<br>_Size range: 1..30_<br> |
+| limit | `Number` | **optional** <p>Amount of returned items.</p>_Default value: 30_<br>_Size range: 1..100_<br> |
+| sort | `String[]` | **optional** <p>Order of returned items.</p>_Default value: -createdAt_<br> |
+| fields | `String[]` | **optional** <p>Fields to be returned.</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| count | `Int` | <p>total cards</p> |
+| rows | `Object[]` | <p>of user's cards.</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
+| 401 |  | <p>Admin access only.</p> |
+
 ## <a name='Retrieve-users'></a> Retrieve users
 [Back to top](#top)
 
@@ -1687,3 +1859,88 @@ PUT /users/:id
 | 400 | `Object` | <p>Some parameters may contain invalid values.</p> |
 | 401 |  | <p>Current user or admin access only.</p> |
 | 404 |  | <p>User not found.</p> |
+
+# <a name='User_Categories'></a> User_Categories
+
+## <a name='Create-a-category-the-user'></a> Create a category the user
+[Back to top](#top)
+
+```
+POST /user_categories
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+| categories | `String` | <p>CategoryID</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| category | `Object` | <p>Category Created</p> |
+
+## <a name='delete-a-category-for-an-user'></a> delete a category for an user
+[Back to top](#top)
+
+```
+DELETE /user_categories/:id
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+
+### Success response
+
+#### Success response - `Sucess 204`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 204 |  | <p>No Content</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 404 |  | <p>user_category not found.</p> |
+
+## <a name='Get-a-category-for-an-user'></a> Get a category for an user
+[Back to top](#top)
+
+```
+GET /user_categories?user={userID}
+```
+
+### Parameters - `Parameter`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| access_token | `String` | <p>user access token.</p> |
+| user | `String` | <p>userID as query param</p> |
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| categories | `Object` | <p>user's categories</p> |
+| count | `Number` | <p>Total of data</p> |
+| rows | `Object[]` | <p>List of user's categories</p> |
+
+### Error response
+
+#### Error response - `Error 4xx`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| 400 | `Object` | <p>Some parameters may contain invalid values.</p> |

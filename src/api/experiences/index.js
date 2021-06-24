@@ -2,13 +2,13 @@ import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { token } from '../../services/passport'
-import { create, index, show, update, destroy } from './controller'
+import { create, showByCategory, index, show, update, destroy } from './controller'
 import { schema } from './model'
 export Experiences, { schema } from './model'
 
 
 const router = new Router()
-const { name, description, direction, price, lat, long, quotas, start, end, duration, extra, enabled } = schema.tree
+const { name, category, description, direction, price, lat, long, quotas, start, end, duration, extra, enabled } = schema.tree
 
 /**
  * @api {post} /experiences Create experiences
@@ -35,7 +35,7 @@ const { name, description, direction, price, lat, long, quotas, start, end, dura
  */
 router.post('/',
   token({ required: true, roles: ['owner', 'admin'] }),
-  body({ name, description, direction, price, lat, long, quotas, start, end, duration, extra, enabled }),
+  body({ name,category, description, direction, price, lat, long, quotas, start, end, duration, extra, enabled }),
   create)
 
 /**
@@ -72,6 +72,21 @@ router.get('/',
  */
 router.get('/:id',
   show)
+
+/**
+ * @api {get} /experiences/:idCategory Show experiences by category
+ * @apiName ExperiencesByCategory
+ * @apiGroup Experiences
+ * @apiPermission owner, admin, user
+ * @apiParam {String} access_token user access token.
+ * @apiError 404 Experiences not found.
+ * @apiError 401 user access only.
+ * @apiSuccess {Number} count Total amount of experiences.
+ * @apiSuccess {Object[]} rows List of experiences.
+ */
+router.get('/by-category/:idCategory',
+  token({ required: true, roles: ['owner', 'admin', 'user'] }),
+  showByCategory)
 
 /**
  * @api {put} /experiences/:id Update experiences
