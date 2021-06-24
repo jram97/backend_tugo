@@ -3,7 +3,7 @@ import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { token } from '../../services/passport'
 import { schema } from './model'
-import { create, index, destroy, show } from './controller'
+import { create, index, destroy, show,update } from './controller'
 export categories, { schema } from './model'
 
 const router = new Router()
@@ -48,6 +48,13 @@ router.get('/',
 router.get('/:id',
   token({ required: true, roles: ['admin', 'user'] }),
   show)
+
+router.put('/:id',
+  token({ required: true, roles: ['admin'] }),
+  body({
+    name
+  }),
+  update)
 
 /**
  * @api {delete} /categories/:id Remove Category
