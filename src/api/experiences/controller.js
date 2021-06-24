@@ -50,6 +50,7 @@ export const showByCategory = ({ params }, res, next) =>
       rows: experiences.map((exp) => exp.view())
     }))
     .then(success(res))
+    .catch(next)
 
 export const update = ({ user, bodymen: { body }, params }, res, next) =>
   Experiences.findById(params.id)
