@@ -44,7 +44,7 @@ const experiencesSchema = new Schema({
     type: String
   },
   extra: [{
-    type: String
+    type: Object
   }],
   pictures: [{
     type: String
