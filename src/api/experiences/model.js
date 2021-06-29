@@ -1,6 +1,22 @@
 import mongoose, { Schema } from 'mongoose'
 import mongooseKeywords from 'mongoose-keywords'
 
+const couponSize = 11
+
+const experiencePricesSchema = new Schema({
+  adultPrice: String,
+  childrenPrice: String,
+  coupon: {
+    type: String,
+    minlength: couponSize,
+    maxlength: couponSize
+  },
+  discount: {
+    price: String,
+    people: Number
+  }
+})
+
 const experiencesSchema = new Schema({
   user: [{
     type: Schema.ObjectId,
@@ -28,9 +44,7 @@ const experiencesSchema = new Schema({
   long: {
     type: String
   },
-  price: {
-    type: String
-  },
+  price: experiencePricesSchema,
   start: {
     type: String
   },

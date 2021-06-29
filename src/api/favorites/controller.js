@@ -22,6 +22,7 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 
 export const destroy = ({ user, params }, res, next) =>
   Favorites.findById(params.id)
+    .populate('user')
     .then(notFound(res))
     .then(authorOrAdmin(res, user, 'user'))
     .then((favorites) => favorites ? favorites.remove() : null)
