@@ -19,7 +19,7 @@ export const authorOrAdmin = (res, user, userField) => (entity) => {
 
     const isAdmin = user.role === 'admin'
     if (Array.isArray(entity[userField])) {
-      isAuthor = entity[userField] && entity[userField][0].id.equals(user.id)
+      isAuthor = entity[userField] && entity[userField][0].id === user.id
     } else {
       isAuthor = entity[userField] && entity[userField].equals(user.id)
     }
