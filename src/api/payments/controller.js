@@ -30,7 +30,7 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Payments.count(query)
     .then(count => Payments.find(query, select, cursor)
       .populate('card')
-      .populate({ path: 'experiences', select: 'name description', populate: { path: 'user', select: 'name email' } })
+      .populate({ path: 'experiences', select: 'name description pictures direction', populate: { path: 'user', select: 'name email' } })
       .then((payments) => ({
         count,
         rows: payments.map((payments) => payments)
