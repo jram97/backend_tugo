@@ -7,7 +7,7 @@ import { create, index, destroy, show,update } from './controller'
 export categories, { schema } from './model'
 
 const router = new Router()
-const { name } = schema.tree
+const { icon, name } = schema.tree
 
 /**
  * @api {post} /categories Create category or gusto
@@ -15,11 +15,12 @@ const { name } = schema.tree
  * @apiGroup Categories
  * @apiPermission admin,user
  * @apiParam {String} name Category name
+ * @apiParam {String} icon icon name
  * @apiSuccess {Object} category Category's data
  */
 router.post('/',
   token({ required: true, roles: ['admin', 'user'] }),
-  body({ name }),
+  body({ icon, name }),
   create)
 
 /**
@@ -52,6 +53,7 @@ router.get('/:id',
 router.put('/:id',
   token({ required: true, roles: ['admin'] }),
   body({
+    icon,
     name
   }),
   update)

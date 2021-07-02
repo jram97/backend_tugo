@@ -3,6 +3,7 @@ import { categories } from '.'
 
 export const create = ({ bodymen: { body } }, res, next) =>
   categories.create(body)
+    .then((category) => category.view())
     .then(success(res, 201))
     .catch(next)
 

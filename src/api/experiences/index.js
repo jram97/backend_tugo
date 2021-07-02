@@ -17,6 +17,7 @@ const { name, category, description, direction, price, lat, long, quotas, start,
  * @apiPermission owner, admin
  * @apiParam {String} access_token user access token.
  * @apiParam {String} name Experiences's name.
+ * @apiParam {Array} category ids of categories
  * @apiParam {String} description Experiences's description.
  * @apiParam {String} direction Experiences's direction.
  * @apiParam {String} price Experiences's price.

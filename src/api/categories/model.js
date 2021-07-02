@@ -1,6 +1,9 @@
 import mongoose, { Schema } from 'mongoose'
 
 const categoriesSchema = new Schema({
+  icon: {
+    type: String
+  },
   name: {
     type: String
   }
@@ -17,6 +20,7 @@ categoriesSchema.methods = {
   view (full) {
     const view = {
       id: this.id,
+      icon: this.icon,
       category: this.name,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
