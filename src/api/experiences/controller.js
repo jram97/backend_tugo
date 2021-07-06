@@ -12,7 +12,7 @@ export const create = ({ user, bodymen: { body } }, res, next) =>
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Experiences.count(query)
     .then(count => Experiences.find(query, select, cursor)
-      .populate('user', 'name email picture phone')
+      .populate('user', 'name email picture phone description')
       .then((experiences) => ({
         count,
         rows: experiences.map((experiences) => experiences.view())
@@ -24,7 +24,7 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 export const indexRating = ({ querymen: { query, select, cursor } }, res, next) =>
   Experiences.count(query) 
     .then(count => Experiences.find(query, select, cursor)
-      .populate('user', 'name email picture phone')
+      .populate('user', 'name email picture phone description')
       .then((experiences) => ({
         count,
         rows: experiences.map((experiences) => experiences.view())
@@ -35,14 +35,16 @@ export const indexRating = ({ querymen: { query, select, cursor } }, res, next) 
 
 export const show = ({ params }, res, next) =>
   Experiences.findById(params.id)
-    .populate('user', 'name email picture phone')
+    .populate('user', 'name email picture phone description')
     .then(notFound(res))
     .then((experiences) => experiences ? experiences.view() : null)
     .then(success(res))
     .catch(next)
 
-export const showByCategory = ({ params }, res, next) =>
-  Experiences.find({ category: params.idCategory })
+export const showByCategory = ({ params }, res, next) => {
+  const categories = params.idCategory.split(",")
+  
+  Experiences.find({ category: { $in: categories } })
     .populate('category', 'name')
     .then(notFound(res))
     .then((experiences) => ({
@@ -51,10 +53,11 @@ export const showByCategory = ({ params }, res, next) =>
     }))
     .then(success(res))
     .catch(next)
+}
 
 export const update = ({ user, bodymen: { body }, params }, res, next) =>
   Experiences.findById(params.id)
-    .populate('user', 'name email picture phone')
+    .populate('user', 'name email picture phone description')
     .then(notFound(res))
     .then(authorOrAdmin(res, user, 'user'))
     .then((experiences) => experiences ? Object.assign(experiences, body).save() : null)
@@ -64,6 +67,7 @@ export const update = ({ user, bodymen: { body }, params }, res, next) =>
 
 export const destroy = ({ user, params }, res, next) =>
   Experiences.findById(params.id)
+    .populate('user', 'name')
     .then(notFound(res))
     .then(authorOrAdmin(res, user, 'user'))
     .then((experiences) => experiences ? experiences.remove() : null)

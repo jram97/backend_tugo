@@ -75,7 +75,7 @@ router.get('/:id',
   show)
 
 /**
- * @api {get} /experiences/:idCategory Show experiences by category
+ * @api {get} /experiences/:idCategory Show experiences by category or an array of ids
  * @apiName ExperiencesByCategory
  * @apiGroup Experiences
  * @apiPermission owner, admin, user
