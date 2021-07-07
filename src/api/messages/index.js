@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { token } from '../../services/passport'
-import { create, index, show, update, destroy } from './controller'
+import { create, loadChat, index, show, update, destroy } from './controller'
 import { schema } from './model'
 export Messages, { schema } from './model'
 
@@ -87,7 +87,9 @@ router.put('/:id',
   body({ read }),
   update)
 
-
+router.get('/loadChat/:by',
+  token({ required: true, roles: ['owner', 'user', 'admin'] }),
+  loadChat)
 /**
  * @api {delete} /messages/:id Delete messages
  * @apiName DeleteMessages
