@@ -27,7 +27,7 @@ router.post('/',
  * @api {get} /categories Retrive all categories
  * @apiName RetriveCategories
  * @apiGroup Categories
- * @apiPermission admin,user
+ * @apiPermission admin,user, owner
  * @apiSuccess {Number} count Total amount of categories.
  * @apiSuccess {Object[]} rows List of categories.
  * @apiError {Object} 400 Some parameters may contain invalid values.
@@ -41,7 +41,7 @@ router.get('/',
  * @api {get} /categories/:id Retrive a category
  * @apiName RetriveCategory
  * @apiGroup Categories
- * @apiPermission admin,user
+ * @apiPermission admin,user, owner
  * @apiSuccess {Object} category Category Object
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Category not found.
