@@ -34,12 +34,15 @@ router.post('/',
  * @apiName RetrieveReviews
  * @apiGroup Review
  * @apiUse listParams
+ * @apiParam {String} [experience] experience'id
  * @apiSuccess {Number} count Total amount of reviews.
  * @apiSuccess {Object[]} rows List of reviews.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  */
 router.get('/',
-  query(),
+  query({
+    experience: { paths: ['experiences'] }
+  }),
   index)
 
 /**
