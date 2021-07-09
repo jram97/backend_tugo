@@ -33,7 +33,7 @@ router.post('/',
  * @apiError {Object} 400 Some parameters may contain invalid values.
  */
 router.get('/',
-  token({ required: true, roles: ['admin', 'user'] }),
+  token({ required: true, roles: ['admin', 'user', 'owner'] }),
   query(),
   index)
 
@@ -47,7 +47,7 @@ router.get('/',
  * @apiError 404 Category not found.
  */
 router.get('/:id',
-  token({ required: true, roles: ['admin', 'user'] }),
+  token({ required: true, roles: ['admin', 'user', 'owner'] }),
   show)
 
 router.put('/:id',
