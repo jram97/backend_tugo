@@ -7,6 +7,11 @@ const scheduleSchema = new Schema({
   start: {
     type: String
   },
+  user: {
+    type: Schema.ObjectId,
+    ref: 'User',
+    required: true
+  },
   experience: {
     type: Schema.ObjectId,
     ref: 'Experiences',
@@ -29,6 +34,7 @@ scheduleSchema.methods = {
       // simple view
       id: this.id,
       day: this.day,
+      user: this.user,
       start: this.start,
       end: this.end,
       experience: this.experience.view(full),

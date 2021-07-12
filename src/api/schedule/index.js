@@ -7,7 +7,7 @@ import { schema } from './model'
 export Schedule, { schema } from './model'
 
 const router = new Router()
-const { day, start, experience, date } = schema.tree
+const { user, day, start, experience, date } = schema.tree
 
 /**
  * @api {post} /schedules Create schedule
@@ -26,7 +26,7 @@ const { day, start, experience, date } = schema.tree
  */
 router.post('/',
   token({ required: true, roles: ['owner', 'admin'] }),
-  body({ day, start, experience, date }),
+  body({ user, day, start, experience, date }),
   create)
 
 /**
@@ -84,7 +84,7 @@ router.get('/by-day',
  * @apiError 401 admin access only.
  */
 router.get('/:id',
-  token({ required: true, roles: ['admin'] }),
+  token({ required: true, roles: ['admin', 'owner'] }),
   show)
 
 /**
@@ -104,7 +104,7 @@ router.get('/:id',
  */
 router.put('/:id',
   token({ required: true, roles: ['owner'] }),
-  body({ day, start, experience, date }),
+  body({ user, day, start, experience, date }),
   update)
 
 /**

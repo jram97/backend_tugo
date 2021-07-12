@@ -10,6 +10,7 @@ export const create = ({ bodymen: { body } }, res, next) =>
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Schedule.count(query)
     .then(count => Schedule.find(query, select, cursor)
+      .populate('user', 'name email picture phone description')
       .then((schedules) => ({
         count,
         rows: schedules.map((schedule) => schedule.view())
@@ -20,6 +21,7 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 
 export const show = ({ params }, res, next) =>
   Schedule.findById(params.id)
+    .populate('user', 'name email picture phone description')
     .then(notFound(res))
     .then((schedule) => schedule ? schedule.view() : null)
     .then(success(res))
@@ -28,9 +30,10 @@ export const show = ({ params }, res, next) =>
 export const showByDay = ({ querymen: { query, select, cursor } }, res, next) => 
   Schedule.count(query)
     .then(count => Schedule.find(query, select, cursor)
+      .populate('user', 'name email picture phone description')
       .then((schedules) => ({
         count,
-        rows: schedules.map(schedule => schedule)
+        rows: schedules.map(schedule => schedule.view())
       }))
     )
     .then(success(res))
