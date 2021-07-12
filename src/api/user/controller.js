@@ -24,8 +24,7 @@ export const show = ({ params }, res, next) =>
 
 export const findByPhone = ({ query }, res, next) =>
   User.findOne({phone: query.phone})
-    .then(notFound(res))
-    .then((user) => user ? "This phone is not available" : null)
+    .then((user) => user ? "This phone is not available" : "This phone is available")
     .then(success(res))
     .catch(next)
 
