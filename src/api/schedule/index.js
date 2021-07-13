@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { token } from '../../services/passport'
-import { create, index, show, update, destroy, showByDay, destroyAll } from './controller'
+import { create, index, show, update, destroy, showByDay } from './controller'
 import { schema } from './model'
 export Schedule, { schema } from './model'
 
@@ -107,8 +107,6 @@ router.put('/:id',
   token({ required: true, roles: ['owner'] }),
   body({ user, day, start, experience, date }),
   update)
-
-router.delete('/removeall', destroyAll)
 
 /**
  * @api {delete} /schedules/:id Delete schedule
