@@ -53,9 +53,3 @@ export const destroy = ({ params }, res, next) =>
     .then((schedule) => schedule ? schedule.remove() : null)
     .then(success(res, 204))
     .catch(next)
-
-export const destroyAll = ({ params }, res, next) => {
-  Schedule.deleteMany()
-    .then(success(res, 204))
-    .catch(next)
-}
