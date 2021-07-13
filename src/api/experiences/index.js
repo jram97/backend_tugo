@@ -114,7 +114,7 @@ router.get('/by-category/:idCategory',
  */
 router.put('/:id',
   token({ required: true, roles: ['owner', 'admin'] }),
-  body({ name, description, direction, price, lat, long, quotas, start, end, duration, extra, enabled }),
+  body({ name, category, description, direction, price, lat, long, quotas, start, end, duration, extra, enabled }),
   update)
 
 /**
