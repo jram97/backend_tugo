@@ -11,9 +11,10 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Schedule.count(query)
     .then(count => Schedule.find(query, select, cursor)
       .populate('user', 'name email picture phone description')
+      .populate('experience', 'name')
       .then((schedules) => ({
         count,
-        rows: schedules.map((schedule) => schedule.view())
+        rows: schedules.map((schedule) => schedule)
       }))
     )
     .then(success(res))
