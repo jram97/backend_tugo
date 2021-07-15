@@ -61,7 +61,7 @@ const experiencesSchema = new Schema({
     type: Object
   }],
   pictures: [{
-    type: String
+    type: Object
   }],
   count_votes: {
     type: Number,

@@ -13,7 +13,12 @@ export const create = (req, res, next) => {
   }
   elementName.map((i) => {
     Images.create({ name: i, experiences: req.body.experiencesId }).then(async (success) => {
-      await Experiences.findByIdAndUpdate({ _id: req.body.experiencesId }, { pictures: elementName });
+      const oldImages = await Images.find({ experiences: req.body.experiencesId });
+      const setImages = []
+      oldImages.map(async (img) => {
+        setImages.push(img.name)
+        await Experiences.findByIdAndUpdate({ _id: req.body.experiencesId }, { pictures: setImages });
+      })
     }).catch(err => console.log(err));
   })
 
