@@ -4,22 +4,27 @@ import { Experiences } from '../experiences'
 
 export const create = (req, res, next) => {
   let elementName = [];
-
+  let pictures
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send({ err: 'No files were uploaded.' });
   }
   for (let index = 0; index < req.files.length; index++) {
-    elementName.push('/static/' + req.files[index]["filename"].trim());
+    const name = '/static/' + req.files[index]["filename"].trim()
+    elementName.push({
+      name: name
+    });
   }
   elementName.map((i) => {
-    Images.create({ name: i, experiences: req.body.experiencesId }).then(async (success) => {
-      const oldImages = await Images.find({ experiences: req.body.experiencesId });
+    Images.create({ name: i.name, experiences: req.body.experiencesId }).then(async (success) => {
+      const oldImages = await Images.find({ experiences: req.body.experiencesId })
       const setImages = []
       oldImages.map(async (img) => {
-        setImages.push(img.name)
-        await Experiences.findByIdAndUpdate({ _id: req.body.experiencesId }, { pictures: setImages });
+        pictures = { image_id: img.id, path: img.name }
+
+        setImages.push(pictures)
+        await Experiences.findByIdAndUpdate({ _id: req.body.experiencesId }, { pictures: setImages })
       })
-    }).catch(err => console.log(err));
+    }).catch(err => console.log(err))
   })
 
   return res.status(201).send({ msg: 'Images was uploaded.', images_path: elementName });
@@ -54,7 +59,7 @@ export const destroy = ({ params }, res, next) =>
       let imagesNew = [];
       
       dataImages.map(async (i) => {
-        imagesNew.push(i.name);
+        imagesNew.push({ image_id: i.id, path: i.name });
         await Experiences.findByIdAndUpdate({ _id: i.experiences }, { pictures: imagesNew });
       })
 
