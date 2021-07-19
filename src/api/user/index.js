@@ -2,9 +2,23 @@ import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { password as passwordAuth, token } from '../../services/passport'
-import { index, showMe, cards, show, create, update, updatePassword, destroy, sendcode, receivecode, assingToken, findByPhone } from './controller'
+import { index, showMe, cards, show, create, update, updatePassword, destroy, sendcode, receivecode, assingToken, findByPhone, uploadPicture } from './controller'
 import { schema } from './model'
 export User, { schema } from './model'
+
+//Multer
+const multer = require('multer')
+
+const pictureStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './src/public/')
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname.replace(/\s/g, '-').trim())
+  }
+})
+
+const upload = multer({ storage: pictureStorage })
 
 const router = new Router()
 const { email, password, picture, phone, role, firebaseTokens, name, description, birthday, gender, direction, alias } = schema.tree
@@ -93,10 +107,27 @@ router.post('/',
   create)
 
 /**
+ * @api {post} /picture Set user picture
+ * @apiName UploadUserPicture
+ * @apiGroup User
+ * @apiPermission admin,user,owner
+ * @apiParam {String} access_token User access_token.
+ * @apiParam {File} picture User's picture file.
+ * @apiSuccess {Object} object with msg and picture path fields.
+ * @apiError {Object} 400 Some parameters may contain invalid values.
+ * @apiError 401 Current user or admin access only.
+ * @apiError 404 User not found.
+ */
+router.post('/picture',
+  token({ required: true, roles: ['admin', 'owner', 'user'] }),
+  upload.single('picture'),
+  uploadPicture)
+
+/**
  * @api {put} /users/:id Update user
  * @apiName UpdateUser
  * @apiGroup User
- * @apiPermission user
+ * @apiPermission admin,user,owner
  * @apiParam {String} access_token User access_token.
  * @apiParam {String} name User's name.
  * @apiParam {String} phone User's phone.
@@ -128,10 +159,10 @@ router.put('/:id',
  * @apiError 401 Current user or admin access only.
  * @apiError 404 User not found.
  */
- router.put('/token/:id',
- token({ required: true, roles: ['owner', 'user', 'admin'] }),
- body({ firebaseTokens }),
- assingToken)
+router.put('/token/:id',
+  token({ required: true, roles: ['owner', 'user', 'admin'] }),
+  body({ firebaseTokens }),
+  assingToken)
 
 /**
  * @api {put} /users/:id/password Update password

@@ -50,7 +50,24 @@ export const create = ({ bodymen: { body } }, res, next) =>
         next(err)
       }
     })
+export const uploadPicture = async (req, res, next) => {
+  const { id } = req.user
 
+  if (!req.file) {
+    return res.status(400).send({ err: 'You need to upload a file' })
+  }
+  const name = '/static/' + req.file["filename"].trim()
+  const imagePath = {
+    path: name
+  }
+  try {
+    await User.findByIdAndUpdate({ _id: id }, { picture: imagePath.path })
+  } catch (error) {
+    console.log(error)
+  }
+
+  return res.status(200).send({ msg: 'The picture was upload', picture_path: imagePath })
+}
 export const update = ({ bodymen: { body }, params, user }, res, next) =>
   User.findById(params.id === 'me' ? user.id : params.id)
     .then(notFound(res))
