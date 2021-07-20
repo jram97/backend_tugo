@@ -67,7 +67,7 @@ export const uploadPicture = async (req, res, next) => {
     console.log(error)
   }
 
-  return res.status(200).send({ msg: 'The picture was upload', picture_path: `${req.get('Host')}${imagePath.path}` })
+  return res.status(200).send({ msg: 'The picture was upload', picture_path: imagePath.path })
 }
 export const update = ({ bodymen: { body }, params, user }, res, next) =>
   User.findById(params.id === 'me' ? user.id : params.id)
