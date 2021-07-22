@@ -12,9 +12,10 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
     .then(count => Favorites.find(query, select, cursor)
       .populate('user')
       .populate('experiences')
+      .then((favorites) => favorites.filter((favorite, i) => favorite.experiences != null)) // valida que la experiencia no ha sido borrada
       .then((favorites) => ({
         count,
-        rows: favorites.map((favorites) => favorites.view())
+        rows: favorites.map((favorite) => favorite.view())
       }))
     )
     .then(success(res))
