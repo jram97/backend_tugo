@@ -6,10 +6,10 @@ const userCategorySchema = new Schema({
     ref: 'User',
     required: true
   }],
-  categories: {
+  categories: [{
     type: Schema.ObjectId,
     ref: 'categories'
-  }
+  }]
 },
 {
   timestamps: true,
@@ -24,7 +24,7 @@ userCategorySchema.methods = {
     const view = {
       id: this.id,
       user: this.user,
-      categories: this.categories.view(full)
+      categories: this.categories
     }
     return full ? {
       ...view

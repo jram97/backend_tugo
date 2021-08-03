@@ -17,6 +17,16 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
     }))
     .then(success(res))
 
+export const updateCategories = ({ bodymen: { body }, params }, res, next) => {
+  let { user_id } = params
+  userCategories.find({ user: user_id })
+    .then(notFound(res))
+    .then((data) => data ? Object.assign(data[0], body).save() : null)
+    .then((data) => data ? data.view(true) : null)
+    .then(success(res))
+    .catch(next)
+}
+
 export const destroy = ({ params }, res, next) =>
   userCategories.findById(params.id)
     .then(notFound(res))

@@ -4,14 +4,14 @@ import { middleware as body } from 'bodymen'
 import { token } from '../../services/passport'
 import { schema } from './model'
 import { index } from './controller'
-import { saveCategory,destroy } from './controller'
+import { saveCategory,destroy,updateCategories } from './controller'
 export userCategories, { schema } from './model'
 
 const router = new Router()
 const { user, categories } = schema.tree
 
 /**
- * @api {post} /user_categories Create a category the user
+ * @api {post} /user_categories Create a category for the user
  * @apiName CreateUserCategory
  * @apiGroup User_Categories
  * @apiPermission user,admin
@@ -44,6 +44,22 @@ router.get('/',
     user: true
   }),
   index)
+
+/**
+ * @api {put} /user_categories/:user_id Update user's categories
+ * @apiName UpdateUserCategories
+ * @apiGroup User_Categories
+ * @apiPermission user,admin
+ * @apiParam {String} access_token user access token.
+ * @apiParam {String} user user_id as  param to search
+ * @apiParam {String} categories ids of categories to add
+ * @apiSuccess {Object} categories user's categories
+ * @apiError {Object} 400 Some parameters may contain invalid values.
+ */
+router.put('/:user_id',
+  token({ required: true, roles: ['user', 'admin'] }),
+  body({ categories }),
+  updateCategories)
 
 /**
  * @api {delete} /user_categories/:id delete a category for an user

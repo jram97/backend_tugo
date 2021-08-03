@@ -11,3 +11,9 @@ npm-debug.log
 coverage
 cassettes
 src/services/firebase/firebase.json
+
+# JPEG
+*.jpg
+*.jpeg
+# Portable Network Graphics
+*.png
