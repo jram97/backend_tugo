@@ -2,14 +2,19 @@ import mongoose, { Schema } from 'mongoose'
 import mongooseKeywords from 'mongoose-keywords'
 
 const couponSize = 11
-
+// Para establecer las tarifas, cupones y descuento
 const experiencePricesSchema = new Schema({
   adultPrice: String,
   childrenPrice: String,
   coupon: {
-    type: String,
-    minlength: couponSize,
-    maxlength: couponSize
+    code: {
+      type: String,
+      minlength: couponSize,
+      maxlength: couponSize
+    },
+    discount: {
+      type: Number
+    }
   },
   discount: {
     price: String,
