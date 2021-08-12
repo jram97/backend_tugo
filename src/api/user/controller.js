@@ -23,7 +23,7 @@ export const show = ({ params }, res, next) =>
     .catch(next)
 
 export const findByPhone = ({ query }, res, next) =>
-  User.findOne({phone: query.phone})
+  User.findOne({ phone: query.phone })
     .then((user) => user ? "This phone is not available" : "This phone is available")
     .then(success(res))
     .catch(next)
@@ -187,3 +187,43 @@ export const receivecode = async (req, res, next) =>
       }
     })
     .catch(next)
+
+export const changeState = async (req, res, next) => {
+  // 0 -> As User
+  // 1 -> As User and Owner
+  const switchCode = req.headers['user-switch']
+  let role
+
+  if (switchCode == 1) {
+    role = 'owner'
+  } else {
+    role = 'user'
+  }
+
+  const userId = req.user['_id']
+  await User.findByIdAndUpdate({ _id: userId }, { state: switchCode, role: role })
+    .then(async (user) => {
+      const newToken = await sign(user.id, { expiresIn: '24h' })
+
+      // const infoExtra = {
+      //   alias: user.alias,
+      //   email: user.email,
+      //   picture: user.picture,
+      //   role: user.role,
+      //   phone: user.phone,
+      //   direction: user.direction
+      // }
+
+      // user.infoExtra = infoExtra
+
+      // user.save()
+
+      res.status(200).json({
+        token: newToken,
+        msg: `The state was updated to ${role}`,
+        state: switchCode,
+        user: user.view()
+      })
+    })
+    .catch(next)
+}

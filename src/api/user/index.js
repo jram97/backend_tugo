@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { password as passwordAuth, token } from '../../services/passport'
-import { index, showMe, cards, show, create, update, updatePassword, destroy, sendcode, receivecode, assingToken, findByPhone, uploadPicture } from './controller'
+import { index, showMe, cards, show, create, update, updatePassword, destroy, sendcode, receivecode, assingToken, findByPhone, uploadPicture, changeState } from './controller'
 import { schema } from './model'
 export User, { schema } from './model'
 
@@ -220,5 +220,9 @@ router.post('/send-code',
  */
 router.post('/receive-code',
   receivecode)
+
+// This route change the state, 0 = user, 1 = user,owner
+// The frontEnd need this to display a different information
+router.post('/switchUser', token({ required: true, roles: ['owner', 'user'] }), changeState)
 
 export default router
