@@ -193,8 +193,8 @@ export const changeState = async (req, res, next) => {
   // 1 -> As User and Owner
   const switchCode = req.headers['user-switch']
   let role
-
-  if (switchCode == 1) {
+  
+  if (parseInt(switchCode) === 1) {
     role = 'owner'
   } else {
     role = 'user'
