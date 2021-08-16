@@ -21,7 +21,7 @@ const pictureStorage = multer.diskStorage({
 const upload = multer({ storage: pictureStorage })
 
 const router = new Router()
-const { email, password, picture, phone, role, firebaseTokens, name, description, birthday, gender, direction, alias } = schema.tree
+const { email, password, picture, phone, role, firebaseTokens, name, description, birthday, gender, direction, alias, infoExtra } = schema.tree
 
 /**
  * @api {get} /users Retrieve users
@@ -144,7 +144,7 @@ router.post('/picture',
  */
 router.put('/:id',
   token({ required: true, roles: ['owner', 'user', 'admin'] }),
-  body({ phone, picture, name, description, birthday, gender, direction, alias }),
+  body({ phone, picture, name, description, birthday, gender, direction, alias, infoExtra }),
   update)
 
 /**

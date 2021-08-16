@@ -205,16 +205,16 @@ export const changeState = async (req, res, next) => {
     .then(async (user) => {
       const newToken = await sign(user.id, { expiresIn: '24h' })
 
-      // const infoExtra = {
-      //   alias: user.alias,
-      //   email: user.email,
-      //   picture: user.picture,
-      //   role: user.role,
-      //   phone: user.phone,
-      //   direction: user.direction
-      // }
+      const infoExtra = {
+        alias: user.alias,
+        email: user.email,
+        picture: user.picture,
+        role: user.role,
+        phone: user.phone,
+        direction: user.direction
+      }
 
-      // user.infoExtra = infoExtra
+      user.infoExtra = infoExtra
 
       // user.save()
 
