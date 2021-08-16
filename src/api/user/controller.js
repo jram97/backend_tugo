@@ -201,7 +201,7 @@ export const changeState = async (req, res, next) => {
   }
 
   const userId = req.user['_id']
-  await User.findByIdAndUpdate({ _id: userId }, { state: switchCode, role: role })
+  await User.findByIdAndUpdate({ _id: userId }, { state: switchCode, role: role }, { new: true })
     .then(async (user) => {
       const newToken = await sign(user.id, { expiresIn: '24h' })
 
