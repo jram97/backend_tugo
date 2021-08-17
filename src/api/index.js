@@ -38,6 +38,9 @@ const router = new Router()
  * @apiParam {String[]} [sort=-createdAt] Order of returned items.
  * @apiParam {String[]} [fields] Fields to be returned.
  */
+router.use('/', (req, res, next) => {
+  res.status(200).end('Tugo Api')
+})
 router.use('/auth', auth)
 router.use('/users', user)
 router.use('/experiences', experiences)
