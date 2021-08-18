@@ -72,7 +72,13 @@ const userSchema = new Schema({
     type: Number
   },
   infoExtra: {
+    name: {
+      type: String
+    },
     alias: {
+      type: String
+    },
+    gender: {
       type: String
     },
     email: {

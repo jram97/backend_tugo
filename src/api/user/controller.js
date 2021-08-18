@@ -193,7 +193,7 @@ export const changeState = async (req, res, next) => {
   // 1 -> As User and Owner
   const switchCode = req.headers['user-switch']
   let role
-  
+
   if (parseInt(switchCode) === 1) {
     role = 'owner'
   } else {
@@ -204,19 +204,22 @@ export const changeState = async (req, res, next) => {
   await User.findByIdAndUpdate({ _id: userId }, { state: switchCode, role: role }, { new: true })
     .then(async (user) => {
       const newToken = await sign(user.id, { expiresIn: '24h' })
+      const checkInfoExtra = await User.find({ _id: userId, infoExtra: { $exists: true } }) // The field infoExtra exists?
 
-      const infoExtra = {
-        alias: user.alias,
-        email: user.email,
-        picture: user.picture,
-        role: user.role,
-        phone: user.phone,
-        direction: user.direction
+      if (checkInfoExtra.length === 0) {
+        const temporalInfoExtra = {
+          name: user.name,
+          gender: user.gender,
+          alias: user.alias,
+          email: user.email,
+          picture: user.picture,
+          role: user.role,
+          phone: user.phone,
+          direction: user.direction
+        }
+
+        user.infoExtra = temporalInfoExtra
       }
-
-      user.infoExtra = infoExtra
-
-      // user.save()
 
       res.status(200).json({
         token: newToken,

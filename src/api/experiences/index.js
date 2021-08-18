@@ -36,7 +36,7 @@ const { name, category, description, direction, price, lat, long, quotas, start,
  */
 router.post('/',
   token({ required: true, roles: ['owner', 'admin'] }),
-  body({ name,category, description, direction, price, lat, long, quotas, start, end, duration, extra, enabled }),
+  body({ name, category, description, direction, price, lat, long, quotas, start, end, duration, extra, enabled }),
   create)
 
 /**
@@ -64,6 +64,23 @@ router.get('/',
   index)
 
 /**
+ * @api {get} /experiences/by-category/ Show experiences by category or an array of ids
+ * @apiName ExperiencesByCategory
+ * @apiGroup Experiences
+ * @apiPermission owner, admin, user
+ * @apiParam {String} access_token user access token.
+ * @apiParam {array} categories array of categories ids
+ * @apiError 404 Experiences not found.
+ * @apiError 401 user access only.
+ * @apiSuccess {Number} count Total amount of experiences.
+ * @apiSuccess {Object[]} rows List of experiences.
+ */
+
+router.get('/by-category',
+  token({ required: true, roles: ['owner', 'admin', 'user'] }),
+  showByCategory)
+
+/**
  * @api {get} /experiences/:id Retrieve experiences
  * @apiName RetrieveExperiences
  * @apiGroup Experiences
@@ -73,21 +90,6 @@ router.get('/',
  */
 router.get('/:id',
   show)
-
-/**
- * @api {get} /experiences/by-category/:idCategory Show experiences by category or an array of ids
- * @apiName ExperiencesByCategory
- * @apiGroup Experiences
- * @apiPermission owner, admin, user
- * @apiParam {String} access_token user access token.
- * @apiError 404 Experiences not found.
- * @apiError 401 user access only.
- * @apiSuccess {Number} count Total amount of experiences.
- * @apiSuccess {Object[]} rows List of experiences.
- */
-router.get('/by-category/:idCategory',
-  token({ required: true, roles: ['owner', 'admin', 'user'] }),
-  showByCategory)
 
 /**
  * @api {put} /experiences/:id Update experiences
